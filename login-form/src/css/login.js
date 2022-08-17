@@ -4,9 +4,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   background-color: red;
+  height: auto;
 `;
 
-export const LoginContainer = styled.div`
+export const LoginContainer = styled.form`
   display: flex;
   flex-direction: column;
   background-color: blue;
@@ -25,6 +26,7 @@ export const LoginText = styled.div`
 export const LoginInput = styled.input`
   margin-left: 10px;
   height: 20px;
+  width: 170px;
 `;
 
 export const LoginBtnDiv = styled.div`
@@ -33,5 +35,5 @@ export const LoginBtnDiv = styled.div`
 `;
 export const LoginBtn = styled.button`
   width: 200px;
-  /* text-align: center; */
+  border-radius: 10px;
 `;
