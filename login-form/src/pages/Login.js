@@ -1,4 +1,14 @@
-import { Container, LoginContainer, LoginText, LoginInput, LoginBtn, LoginBtnDiv } from "../css/login";
+import {
+  Container,
+  LoginContainer,
+  LoginText,
+  LoginInput,
+  LoginBtn,
+  LoginBtnDiv,
+  Title,
+  SubBtn,
+  FinderText,
+} from "../css/Login";
 import { useState, React } from "react";
 
 export const Login = () => {
@@ -23,7 +33,7 @@ export const Login = () => {
       <Container>
         <div>왼쪽</div>
         <LoginContainer onSubmit={onSubmit}>
-          <h2>Login</h2>
+          <Title>Login</Title>
           <LoginText>
             ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
           </LoginText>
@@ -33,6 +43,13 @@ export const Login = () => {
           <LoginBtnDiv>
             <LoginBtn>로그인</LoginBtn>
           </LoginBtnDiv>
+          <FinderText>
+            <SubBtn> 아이디 찾기 </SubBtn>
+            &nbsp;|
+            <SubBtn> 비밀번호 찾기 </SubBtn>
+            &nbsp;|
+            <SubBtn> 회원가입</SubBtn>
+          </FinderText>
         </LoginContainer>
         <div>오른쪽</div>
       </Container>

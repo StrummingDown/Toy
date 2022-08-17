@@ -11,7 +11,7 @@ export const LoginContainer = styled.form`
   display: flex;
   flex-direction: column;
   background-color: blue;
-  height: 200px;
+  height: 240px;
 `;
 
 export const LoginText = styled.div`
@@ -21,6 +21,10 @@ export const LoginText = styled.div`
   background-color: yellow;
   align-items: center;
   height: 40px;
+`;
+
+export const FinderText = styled(LoginText)`
+  justify-content: center;
 `;
 
 export const LoginInput = styled.input`
@@ -36,4 +40,13 @@ export const LoginBtnDiv = styled.div`
 export const LoginBtn = styled.button`
   width: 200px;
   border-radius: 10px;
+  font-size: 20px;
+`;
+
+export const Title = styled.h2`
+  text-align: center;
+`;
+
+export const SubBtn = styled.button`
+  margin: 5px;
 `;
