@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  background: linear-gradient(to right, white 20%, skyblue);
+`;
+export const HeaderBgColor = styled.div`
+  background: linear-gradient(to right, white, blue);
+  display: flex;
+  align-items: right;
+  text-align: right;
+  width: 400px;
 `;
 
 export const HeaderIcon = styled.img`
@@ -21,5 +29,7 @@ export const HeaderLoginLink = styled(Link)`
 
 export const HeaderWarp = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: right;
+  text-align: right;
 `;

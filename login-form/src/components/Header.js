@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderContainer, HeaderIcon, HeaderLoginLink, HeaderWarp } from "../css/Header";
+import { HeaderContainer, HeaderIcon, HeaderLoginLink, HeaderWarp, HeaderBgColor } from "../css/Header";
 import icon from "../imgs/restaurant.png";
 import { Link } from "react-router-dom";
 
