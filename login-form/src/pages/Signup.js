@@ -18,6 +18,9 @@ export const Signup = () => {
           Check Password <SignupInput placeholder="Please Check your Password" />
         </SignupText>
         <SignupText>
+          E-mail <SignupInput placeholder="Please Enter your E-mail" />
+        </SignupText>
+        <SignupText>
           Nickname <SignupInput placeholder="Please Enter your Nickname" />
         </SignupText>
         <SignupText>

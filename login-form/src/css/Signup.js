@@ -27,4 +27,10 @@ export const SignupBtn = styled.button`
   transition-duration: 0.3s;
   box-shadow: 3px 3px 3px black;
   margin-top: 20px;
+  margin-bottom: 5px;
+  background-color: skyblue;
+  &:active {
+    box-shadow: inset -0.3rem -0.1rem 1.4rem #fbfbfb, inset 0.3rem 0.4rem 0.8rem #bec5d0;
+    cursor: pointer;
+  }
 `;

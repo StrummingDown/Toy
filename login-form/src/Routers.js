@@ -5,6 +5,7 @@ import { Header } from "./components/Header";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
 import { Main } from "./pages/Main";
+import { FindId } from "./pages/FindId";
 
 export const Routers = () => {
   return (
@@ -14,6 +15,7 @@ export const Routers = () => {
         <Route path="/" exact element={<Main />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<Signup />} />
+        <Route path="findId" exact element={<FindId />} />
       </Routes>
       <Footer />
     </BrowserRouter>

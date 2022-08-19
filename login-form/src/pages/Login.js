@@ -45,8 +45,7 @@ export const Login = () => {
             <LoginBtn>로그인</LoginBtn>
           </LoginBtnDiv>
           <FinderText>
-            <SubBtn> 아이디 찾기 </SubBtn>
-            &nbsp;|
+            <SubLink to="/findId"> 아이디 찾기 |</SubLink>
             <SubBtn> 비밀번호 찾기 </SubBtn>
             &nbsp;|
             <SubLink to="/signup"> 회원가입</SubLink>
