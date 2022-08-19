@@ -8,6 +8,7 @@ import {
   Title,
   SubBtn,
   FinderText,
+  SubLink,
 } from "../css/Login";
 import { useState, React } from "react";
 
@@ -48,7 +49,7 @@ export const Login = () => {
             &nbsp;|
             <SubBtn> 비밀번호 찾기 </SubBtn>
             &nbsp;|
-            <SubBtn> 회원가입</SubBtn>
+            <SubLink to="/signup"> 회원가입</SubLink>
           </FinderText>
         </LoginContainer>
         <div>오른쪽</div>

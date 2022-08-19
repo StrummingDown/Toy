@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -49,4 +50,10 @@ export const Title = styled.h2`
 
 export const SubBtn = styled.button`
   margin: 5px;
+`;
+export const SubLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-size: 12px;
+  margin: 0px 10px;
 `;

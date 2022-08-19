@@ -18,3 +18,8 @@ export const HeaderLoginLink = styled(Link)`
   color: black;
   text-decoration: none;
 `;
+
+export const HeaderWarp = styled.div`
+  display: flex;
+  align-items: right;
+`;

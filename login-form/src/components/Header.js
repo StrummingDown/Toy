@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderContainer, HeaderIcon, HeaderLoginLink } from "../css/Header";
+import { HeaderContainer, HeaderIcon, HeaderLoginLink, HeaderWarp } from "../css/Header";
 import icon from "../imgs/restaurant.png";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,10 @@ export const Header = () => {
       <Link to="/">
         <HeaderIcon src={icon} />
       </Link>
-      <HeaderLoginLink to="/login">Login</HeaderLoginLink>
+      <HeaderWarp>
+        <HeaderLoginLink to="/">Main</HeaderLoginLink>
+        <HeaderLoginLink to="/login">Login</HeaderLoginLink>
+      </HeaderWarp>
     </HeaderContainer>
   );
 };
