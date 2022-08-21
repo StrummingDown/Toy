@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { users } from '@prisma/client';
+import { Users } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/users.entity';
@@ -17,14 +17,13 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Get()
-  getAllUsers(): Promise<users[]> {
+  getAllUsers(): Promise<Users[]> {
     return this.usersService.getAllUsers();
   }
 
   @Get('/:id')
-  getOneUser(@Param('id') userId: number): User {
-    console.log(typeof userId);
-    return this.usersService.getOneUser(userId);
+  async getOneUser(@Param('id') userId: number): Promise<Users> {
+    return await this.usersService.getOneUser(userId);
   }
 
   @Post()
