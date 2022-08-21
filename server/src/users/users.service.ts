@@ -2,13 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/users.entity';
-
+import { PrismaService } from 'src/prisma.service';
+import { users, Prisma } from '@prisma/client';
 @Injectable()
 export class UsersService {
   private users: User[] = [];
+  constructor(private prisma: PrismaService) {}
 
-  getAllUsers(): User[] {
-    return this.users;
+  getAllUsers(): Promise<users[]> {
+    return this.prisma.users.findMany();
   }
   getOneUser(id: number): User {
     const user = this.users.find((user) => user.id === id);
@@ -22,10 +24,15 @@ export class UsersService {
     this.users = this.users.filter((user) => user.id !== id);
     return true;
   }
-  createUser(userData: CreateUserDto) {
-    this.users.push({
-      id: this.users.length + 1,
-      ...userData,
+  createUser(userData: CreateUserDto): Promise<users> {
+    return this.prisma.users.create({
+      data: {
+        id: 2,
+        nickname: '자이라',
+        location: '서초',
+        email: '네이트',
+        passowrd: '야채',
+      },
     });
   }
   updateUser(id: number, updateDate: UpdateUserDto) {
