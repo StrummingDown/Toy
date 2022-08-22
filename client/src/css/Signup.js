@@ -5,7 +5,7 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
-export const SignupContainer = styled.div`
+export const SignupContainer = styled.form`
   display: flex;
   flex-direction: column;
 `;
@@ -33,4 +33,8 @@ export const SignupBtn = styled.button`
     box-shadow: inset -0.3rem -0.1rem 1.4rem #fbfbfb, inset 0.3rem 0.4rem 0.8rem #bec5d0;
     cursor: pointer;
   }
+`;
+
+export const SignupError = styled.small`
+  color: red;
 `;

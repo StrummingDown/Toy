@@ -4,9 +4,11 @@ export class CreateUserDto {
   @IsString()
   readonly password: string;
   @IsString()
-  readonly nickname: string;
+  readonly checkPassword: string;
   @IsString()
-  readonly location: string;
+  readonly nickname: string;
+  // @IsString()
+  // readonly location: string;
   @IsString()
   readonly email: string;
 }

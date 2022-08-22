@@ -31,22 +31,23 @@ export class UsersService {
     }
   }
   createUser(userData: CreateUserDto): Promise<Users> {
-    const { password, email, nickname, location } = userData;
+    const { password, email, nickname } = userData;
+    // const id = parseInt(String(new Date().getTime()).substring(0, 4)); // 고유한 id 부여
     return this.prisma.users.create({
       data: {
         password,
         email,
         nickname,
-        location,
+        location: '서울',
       },
     });
   }
   async updateUser(id: number, updateDate: UpdateUserDto): Promise<Users> {
     try {
-      const { password, email, nickname, location } = updateDate;
+      const { password, email, nickname } = updateDate;
       return await this.prisma.users.update({
         where: { id },
-        data: { password, email, nickname, location },
+        data: { password, email, nickname },
       });
     } catch {
       throw new NotFoundException(`User with ID: ${id} not found.`);
