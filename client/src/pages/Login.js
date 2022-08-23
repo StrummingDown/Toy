@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
   const nav = useNavigate();
   const onChangeId = (event) => {
     setEmail(event.target.value);
@@ -25,25 +26,29 @@ export const Login = () => {
     setPw(event.target.value);
   };
 
-  const login = async (userData) => {
-    const { data } = await axios.post(`http://localhost:4000/users/login`, { email: userData });
+  const login = async (loginData) => {
+    const { data } = await axios.post(`http://localhost:4000/users/login`, { email: loginData, password: pw });
+    console.log("데이터:", data);
+    if (data) {
+      window.localStorage.setItem("email", email);
+      window.localStorage.setItem("pw", pw);
+    }
     return data;
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-
     const userData = await login(email);
-
-    if (userData.length === 0) {
+    console.log(userData.length);
+    if (!userData) {
       alert("회원정보가 일치하지 않습니다.");
     } else {
+      setIsLogin(true);
       nav("/");
     }
-    window.localStorage.setItem("email", email);
-    window.localStorage.setItem("pw", pw);
   };
 
+  console.log(isLogin);
   return (
     <div>
       <Container>

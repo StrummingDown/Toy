@@ -15,6 +15,7 @@ import { UsersService } from './users.service';
 
 type body = {
   email: string;
+  password: string;
 };
 type userId = {
   id: number;
@@ -32,9 +33,9 @@ export class UsersController {
 
   @Post('login')
   login(@Body() body: body) {
-    const { email } = body;
-    console.log('컨트롤러 이메일', email);
-    return this.usersService.login(email);
+    const { email, password } = body;
+    console.log(email, password);
+    return this.usersService.login(email, password);
   }
   @Post('/mypage')
   getOneUser(@Body() userEmail: userEmail): Promise<Users> {
@@ -49,7 +50,6 @@ export class UsersController {
   @Delete()
   deleteUser(@Body() userEmail: userEmail) {
     const { email } = userEmail;
-
     return this.usersService.deleteUser(email);
   }
   @Patch('/:id')

@@ -10,7 +10,6 @@ type userId = {
 };
 @Injectable()
 export class UsersService {
-  private Users: User[] = [];
   constructor(private prisma: PrismaService) {}
 
   async getAllUsers(): Promise<Users[]> {
@@ -18,7 +17,6 @@ export class UsersService {
   }
   async getOneUser(email: string): Promise<Users> {
     // try { try안에서 NotFoundException이 작동하지 않는다..
-    console.log(email);
     const user = await this.prisma.users.findUnique({ where: { email } });
     if (!user) {
       throw new NotFoundException(`User with ID: ${email} not found.`);
@@ -56,12 +54,16 @@ export class UsersService {
       throw new NotFoundException(`User with ID: ${id} not found.`);
     }
   }
-  async login(email: string): Promise<Users> {
+  async login(email: string, password: string): Promise<Users> {
     try {
-      console.log(
-        await this.prisma.users.findFirst({ where: { email: email } }),
-      );
-      return await this.prisma.users.findFirst({ where: { email: email } });
+      const userData = await this.prisma.users.findFirst({
+        where: { email: email },
+      });
+      if (userData.password === password && userData.email === email) {
+        return userData;
+      } else {
+        return null;
+      }
     } catch {}
   }
 }
