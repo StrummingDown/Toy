@@ -26,6 +26,12 @@ export const HeaderLoginLink = styled(Link)`
   color: black;
   text-decoration: none;
 `;
+export const HeaderLogout = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+  cursor: pointer;
+`;
 
 export const HeaderWarp = styled.div`
   display: flex;

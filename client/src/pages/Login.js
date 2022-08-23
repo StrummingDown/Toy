@@ -28,7 +28,7 @@ export const Login = () => {
 
   const login = async (loginData) => {
     const { data } = await axios.post(`http://localhost:4000/users/login`, { email: loginData, password: pw });
-    console.log("데이터:", data);
+
     if (data) {
       window.localStorage.setItem("email", email);
       window.localStorage.setItem("pw", pw);
@@ -39,7 +39,7 @@ export const Login = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     const userData = await login(email);
-    console.log(userData.length);
+
     if (!userData) {
       alert("회원정보가 일치하지 않습니다.");
     } else {
@@ -48,7 +48,6 @@ export const Login = () => {
     }
   };
 
-  console.log(isLogin);
   return (
     <div>
       <Container>
