@@ -2,26 +2,29 @@ import React, { useEffect, useState } from "react";
 import { HeaderContainer, HeaderIcon, HeaderLoginLink, HeaderWarp, HeaderLogout } from "../css/Header";
 import icon from "../imgs/restaurant.png";
 import { Link } from "react-router-dom";
+import { user } from "../store";
+import { useRecoilState } from "recoil";
 
 export const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const email = window.localStorage.getItem("email");
+  const [isLogin, setIsLogin] = useRecoilState(user);
+  const [state, setState] = useState(false);
   const loginState = () => {
-    if (email) {
+    if (user) {
       setIsLogin(true);
+      setState(true);
     } else {
       setIsLogin(false);
+      setState(false);
     }
   };
-  console.log(isLogin);
 
-  useEffect(() => {
-    console.log("이펙트");
-    loginState();
-  }, [isLogin]);
+  // useEffect(() => {
+  //   loginState();
+  // }, [isLogin]);
+
   const logout = () => {
-    window.localStorage.removeItem("email");
     setIsLogin(false);
+    setState(false);
   };
   return (
     <HeaderContainer>

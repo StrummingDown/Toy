@@ -13,12 +13,15 @@ import {
 import { useState, React } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { user } from "../store";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useRecoilState(user);
   const nav = useNavigate();
+
   const onChangeId = (event) => {
     setEmail(event.target.value);
   };
