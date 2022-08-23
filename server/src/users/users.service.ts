@@ -5,6 +5,9 @@ import { User } from './entities/Users.entity';
 import { PrismaService } from 'prisma/prisma.service';
 import { Users } from '@prisma/client';
 
+type userId = {
+  id: number;
+};
 @Injectable()
 export class UsersService {
   private Users: User[] = [];
@@ -13,21 +16,21 @@ export class UsersService {
   async getAllUsers(): Promise<Users[]> {
     return this.prisma.users.findMany();
   }
-  async getOneUser(id: number): Promise<Users> {
+  async getOneUser(email: string): Promise<Users> {
     // try { try안에서 NotFoundException이 작동하지 않는다..
-    const user = await this.prisma.users.findUnique({ where: { id } });
+    console.log(email);
+    const user = await this.prisma.users.findUnique({ where: { email } });
     if (!user) {
-      throw new NotFoundException(`User with ID: ${id} not found.`);
+      throw new NotFoundException(`User with ID: ${email} not found.`);
     }
     return user;
     // } catch {}
   }
-  async deleteOneUser(id: number): Promise<Users> {
+  async deleteUser(email: string): Promise<Users> {
     try {
-      await this.getOneUser(id);
-      return await this.prisma.users.delete({ where: { id } });
+      return await this.prisma.users.delete({ where: { email } });
     } catch {
-      throw new NotFoundException(`User with ID: ${id} not found.`);
+      throw new NotFoundException(`User with ID: ${email} not found.`);
     }
   }
   createUser(userData: CreateUserDto): Promise<Users> {
@@ -52,5 +55,13 @@ export class UsersService {
     } catch {
       throw new NotFoundException(`User with ID: ${id} not found.`);
     }
+  }
+  async login(email: string): Promise<Users> {
+    try {
+      console.log(
+        await this.prisma.users.findFirst({ where: { email: email } }),
+      );
+      return await this.prisma.users.findFirst({ where: { email: email } });
+    } catch {}
   }
 }

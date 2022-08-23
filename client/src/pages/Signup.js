@@ -11,15 +11,16 @@ import {
 } from "../css/Signup";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-const signup = async (userData) => {
-  const data = await axios.post(`http://localhost:4000/users`, userData);
-  return data;
-};
+// const signup = async (userData) => {
+//   const data = await axios.post(`http://localhost:4000/users`, userData);
+//   return data;
+// };
 
 export const Signup = () => {
   const [userInfo, setUserInfo] = useState({});
-
+  const nav = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,7 +29,9 @@ export const Signup = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const userData = await signup(data);
+    const userData = await axios.post(`http://localhost:4000/users`, data);
+    nav("/");
+    return userData;
     // await new Promise((r) => setTimeout(r, 1000));
   };
   return (

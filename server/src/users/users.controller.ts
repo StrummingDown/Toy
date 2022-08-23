@@ -6,13 +6,22 @@ import {
   Param,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { Users } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/users.entity';
 import { UsersService } from './users.service';
 
+type body = {
+  email: string;
+};
+type userId = {
+  id: number;
+};
+type userEmail = {
+  email: string;
+};
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -21,18 +30,27 @@ export class UsersController {
     return this.usersService.getAllUsers();
   }
 
-  @Get('/:id')
-  async getOneUser(@Param('id') userId: number): Promise<Users> {
-    return await this.usersService.getOneUser(userId);
+  @Post('login')
+  login(@Body() body: body) {
+    const { email } = body;
+    console.log('컨트롤러 이메일', email);
+    return this.usersService.login(email);
+  }
+  @Post('/mypage')
+  getOneUser(@Body() userEmail: userEmail): Promise<Users> {
+    const { email } = userEmail;
+    return this.usersService.getOneUser(email);
   }
 
   @Post()
   createUser(@Body() userData: CreateUserDto) {
     return this.usersService.createUser(userData);
   }
-  @Delete('/:id')
-  deleteUser(@Param('id') userId: number) {
-    return this.usersService.deleteOneUser(userId);
+  @Delete()
+  deleteUser(@Body() userEmail: userEmail) {
+    const { email } = userEmail;
+
+    return this.usersService.deleteUser(email);
   }
   @Patch('/:id')
   UpdateUser(

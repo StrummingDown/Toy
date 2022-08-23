@@ -11,21 +11,36 @@ import {
   SubLink,
 } from "../css/Login";
 import { useState, React } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
-
+  const nav = useNavigate();
   const onChangeId = (event) => {
-    setId(event.target.value);
+    setEmail(event.target.value);
   };
   const onChangePw = (event) => {
     setPw(event.target.value);
   };
 
-  const onSubmit = (event) => {
+  const login = async (userData) => {
+    const { data } = await axios.post(`http://localhost:4000/users/login`, { email: userData });
+    return data;
+  };
+
+  const onSubmit = async (event) => {
     event.preventDefault();
-    window.localStorage.setItem("id", id);
+
+    const userData = await login(email);
+
+    if (userData.length === 0) {
+      alert("회원정보가 일치하지 않습니다.");
+    } else {
+      nav("/");
+    }
+    window.localStorage.setItem("email", email);
     window.localStorage.setItem("pw", pw);
   };
 
@@ -39,7 +54,7 @@ export const Login = () => {
             ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
           </LoginText>
           <LoginText>
-            Password <LoginInput onChange={onChangePw} placeholder="Please enter your Password" />
+            Password <LoginInput onChange={onChangePw} type="password" placeholder="Please enter your Password" />
           </LoginText>
           <LoginBtnDiv>
             <LoginBtn>로그인</LoginBtn>
