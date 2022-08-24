@@ -7,12 +7,21 @@ export const Container = styled.div`
 
 export const MypageContainer = styled.div``;
 
+export const MypageUpdateContainer = styled(MypageContainer)`
+  justify-content: left;
+`;
+
 export const MypageTitle = styled.h2`
   font-size: 30px;
+  text-align: center;
 `;
 
 export const MypageContent = styled.div`
   margin: 10px 0px;
+`;
+export const MypageUpdateContent = styled(MypageContent)`
+  margin: 10px 0px;
+  text-align: right;
 `;
 
 export const MypageBtn = styled.button`
@@ -29,4 +38,9 @@ export const MypageBtn = styled.button`
 export const MypageBtnWrap = styled.div`
   display: flex;
   justify-content: space-around;
+`;
+
+export const MypageContentUpdate = styled.input`
+  margin: 5px 5px;
+  height: 24px;
 `;

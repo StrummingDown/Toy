@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { HeaderContainer, HeaderIcon, HeaderLoginLink, HeaderWarp, HeaderLogout } from "../css/Header";
 import icon from "../imgs/restaurant.png";
-import { Link } from "react-router-dom";
-import { user } from "../store";
-import { useRecoilState } from "recoil";
+import { Link, useNavigate } from "react-router-dom";
+import { loginStatus } from "../store";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 export const Header = () => {
-  const [isLogin, setIsLogin] = useRecoilState(user);
+  const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const [state, setState] = useState(false);
+
+  const nav = useNavigate();
   const loginState = () => {
-    if (user) {
+    if (loginStatus) {
       setIsLogin(true);
       setState(true);
     } else {
@@ -25,6 +27,7 @@ export const Header = () => {
   const logout = () => {
     setIsLogin(false);
     setState(false);
+    nav("/");
   };
   return (
     <HeaderContainer>

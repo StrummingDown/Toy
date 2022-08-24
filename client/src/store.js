@@ -1,8 +1,12 @@
 import { atom } from "recoil";
 
-export const user = atom({
-  key: "user",
+export const loginStatus = atom({
+  key: "loginStatus",
   default: false,
+});
+export const userInfo = atom({
+  key: "userInfo",
+  default: {},
 });
 
 // 타입스크립트였다면 ..

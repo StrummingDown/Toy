@@ -14,12 +14,14 @@ import { useState, React } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { user } from "../store";
+import { loginStatus, userInfo } from "../store";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
-  const [isLogin, setIsLogin] = useRecoilState(user);
+  const [isLogin, setIsLogin] = useRecoilState(loginStatus);
+  const [userData, setUserData] = useRecoilState(userInfo);
+
   const nav = useNavigate();
 
   const onChangeId = (event) => {
@@ -33,6 +35,8 @@ export const Login = () => {
     const { data } = await axios.post(`http://localhost:4000/users/login`, { email: loginData, password: pw });
 
     if (data) {
+      setUserData(data);
+      console.log(userData);
       window.localStorage.setItem("email", email);
       window.localStorage.setItem("pw", pw);
     }
@@ -42,7 +46,7 @@ export const Login = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     const userData = await login(email);
-
+    console.log(userData);
     if (!userData) {
       alert("회원정보가 일치하지 않습니다.");
     } else {
