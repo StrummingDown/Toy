@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   Container,
@@ -49,6 +49,7 @@ export const MypageInfo = ({ data }) => {
     console.log(updateData);
     setIsUpdate(!isUpdate);
   };
+
   return (
     <div>
       {isUpdate ? (
@@ -61,7 +62,7 @@ export const MypageInfo = ({ data }) => {
                   ID :
                   <MypageContentUpdate
                     type="text"
-                    value={userData.id}
+                    value={userData.userId}
                     {...register("id", {
                       minLength: 4,
                     })}

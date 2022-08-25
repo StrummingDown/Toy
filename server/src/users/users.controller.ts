@@ -27,6 +27,9 @@ type userId = {
 type userEmail = {
   userId: string;
 };
+type token = {
+  token: string;
+};
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -47,8 +50,8 @@ export class UsersController {
     return this.usersService.login(userId, password, token);
   }
   @Post('/mypage')
-  getOneUser(@Body() userId: userEmail): Promise<Users> {
-    return this.usersService.getOneUser(userId.userId);
+  getOneUser(@Body() token: token): Promise<Users> {
+    return this.usersService.getOneUser(token);
   }
 
   @Post()

@@ -35,7 +35,7 @@ export const Login = () => {
     const {
       data: { token, userData },
     } = await axios.post(`http://localhost:4000/users/login`, { userId: loginData, password: pw });
-
+    console.log(token, userData);
     if (token) {
       setUserData(userData);
       window.localStorage.setItem("token", token);
@@ -45,8 +45,8 @@ export const Login = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const { userData } = await login(userId);
-    if (!userData) {
+    const data = await login(userId);
+    if (!data) {
       alert("회원정보가 일치하지 않습니다.");
     } else {
       setIsLogin(true);

@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/Users.entity';
 import { PrismaService } from 'prisma/prisma.service';
 import { Users } from '@prisma/client';
+import * as jwt from 'jsonwebtoken';
 
 type userId = {
   id: number;
@@ -13,6 +14,17 @@ type loginType = {
   userData: Users;
   token: string;
 };
+type token = {
+  token: string;
+};
+
+type userData = {
+  userId: string;
+  password: string;
+  nickname: string;
+  email: string;
+  location: string;
+};
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
@@ -20,11 +32,16 @@ export class UsersService {
   async getAllUsers(): Promise<Users[]> {
     return this.prisma.users.findMany();
   }
-  async getOneUser(userId: string): Promise<Users> {
+  async getOneUser({ token }: token): Promise<Users> {
     // try { try안에서 NotFoundException이 작동하지 않는다..
-    const user = await this.prisma.users.findUnique({ where: { userId } });
+
+    const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
+
+    const user = await this.prisma.users.findUnique({
+      where: { userId: userData['userId'] },
+    });
     if (!user) {
-      throw new NotFoundException(`User with ID: ${userId} not found.`);
+      throw new NotFoundException(`User with ID: ${token} not found.`);
     }
     return user;
     // } catch {}
@@ -52,7 +69,7 @@ export class UsersService {
   async updateUser(id: string, updateDate: UpdateUserDto): Promise<Users> {
     try {
       const { password, email, nickname } = updateDate;
-
+      console.log(updateDate);
       return await this.prisma.users.update({
         where: { email },
         data: { password, email, nickname },
@@ -70,6 +87,7 @@ export class UsersService {
       const userData = await this.prisma.users.findFirst({
         where: { userId },
       });
+
       if (userData.password === password && userData.userId === userId) {
         return { userData, token };
       } else {
