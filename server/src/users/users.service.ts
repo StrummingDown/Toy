@@ -8,6 +8,11 @@ import { Users } from '@prisma/client';
 type userId = {
   id: number;
 };
+
+type loginType = {
+  userData: Users;
+  token: string;
+};
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
@@ -56,14 +61,17 @@ export class UsersService {
       throw new NotFoundException(`User with ID: ${id} not found.`);
     }
   }
-  async login(userId: string, password: string): Promise<Users> {
+  async login(
+    userId: string,
+    password: string,
+    token: string,
+  ): Promise<loginType> {
     try {
-      console.log(userId);
       const userData = await this.prisma.users.findFirst({
         where: { userId },
       });
       if (userData.password === password && userData.userId === userId) {
-        return userData;
+        return { userData, token };
       } else {
         return null;
       }

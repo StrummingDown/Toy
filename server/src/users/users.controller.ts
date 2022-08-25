@@ -12,10 +12,14 @@ import { Users } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
+import * as jwt from 'jsonwebtoken';
 
 type body = {
   userId: string;
   password: string;
+  nickname: string;
+  email: string;
+  location: string;
 };
 type userId = {
   id: number;
@@ -33,9 +37,14 @@ export class UsersController {
 
   @Post('login')
   login(@Body() body: body) {
-    const { userId, password } = body;
+    const { userId, nickname, password, location } = body;
+    const token = jwt.sign(
+      { userId, nickname, password, location },
+      process.env.ACCESS_SECRET_KEY,
+      { expiresIn: '24h' },
+    );
 
-    return this.usersService.login(userId, password);
+    return this.usersService.login(userId, password, token);
   }
   @Post('/mypage')
   getOneUser(@Body() userId: userEmail): Promise<Users> {

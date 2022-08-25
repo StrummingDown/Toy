@@ -32,21 +32,20 @@ export const Login = () => {
   };
 
   const login = async (loginData) => {
-    const { data } = await axios.post(`http://localhost:4000/users/login`, { userId: loginData, password: pw });
+    const {
+      data: { token, userData },
+    } = await axios.post(`http://localhost:4000/users/login`, { userId: loginData, password: pw });
 
-    if (data) {
-      setUserData(data);
-      console.log(userData);
-      window.localStorage.setItem("userId", userId);
-      window.localStorage.setItem("pw", pw);
+    if (token) {
+      setUserData(userData);
+      window.localStorage.setItem("token", token);
     }
-    return data;
+    return userData;
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const userData = await login(userId);
-    console.log(userData);
+    const { userData } = await login(userId);
     if (!userData) {
       alert("회원정보가 일치하지 않습니다.");
     } else {
