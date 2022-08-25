@@ -15,11 +15,11 @@ export class UsersService {
   async getAllUsers(): Promise<Users[]> {
     return this.prisma.users.findMany();
   }
-  async getOneUser(email: string): Promise<Users> {
+  async getOneUser(userId: string): Promise<Users> {
     // try { try안에서 NotFoundException이 작동하지 않는다..
-    const user = await this.prisma.users.findUnique({ where: { email } });
+    const user = await this.prisma.users.findUnique({ where: { userId } });
     if (!user) {
-      throw new NotFoundException(`User with ID: ${email} not found.`);
+      throw new NotFoundException(`User with ID: ${userId} not found.`);
     }
     return user;
     // } catch {}
@@ -32,10 +32,11 @@ export class UsersService {
     }
   }
   createUser(userData: CreateUserDto): Promise<Users> {
-    const { password, email, nickname } = userData;
+    const { userId, password, email, nickname } = userData;
     // const id = parseInt(String(new Date().getTime()).substring(0, 4)); // 고유한 id 부여
     return this.prisma.users.create({
       data: {
+        userId,
         password,
         email,
         nickname,
@@ -43,23 +44,25 @@ export class UsersService {
       },
     });
   }
-  async updateUser(id: number, updateDate: UpdateUserDto): Promise<Users> {
+  async updateUser(id: string, updateDate: UpdateUserDto): Promise<Users> {
     try {
       const { password, email, nickname } = updateDate;
+
       return await this.prisma.users.update({
-        where: { id },
+        where: { email },
         data: { password, email, nickname },
       });
     } catch {
       throw new NotFoundException(`User with ID: ${id} not found.`);
     }
   }
-  async login(email: string, password: string): Promise<Users> {
+  async login(userId: string, password: string): Promise<Users> {
     try {
+      console.log(userId);
       const userData = await this.prisma.users.findFirst({
-        where: { email: email },
+        where: { userId },
       });
-      if (userData.password === password && userData.email === email) {
+      if (userData.password === password && userData.userId === userId) {
         return userData;
       } else {
         return null;

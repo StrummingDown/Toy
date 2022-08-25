@@ -14,14 +14,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 type body = {
-  email: string;
+  userId: string;
   password: string;
 };
 type userId = {
   id: number;
 };
 type userEmail = {
-  email: string;
+  userId: string;
 };
 @Controller('users')
 export class UsersController {
@@ -33,30 +33,26 @@ export class UsersController {
 
   @Post('login')
   login(@Body() body: body) {
-    const { email, password } = body;
-    console.log(email, password);
-    return this.usersService.login(email, password);
+    const { userId, password } = body;
+
+    return this.usersService.login(userId, password);
   }
   @Post('/mypage')
-  getOneUser(@Body() userEmail: userEmail): Promise<Users> {
-    const { email } = userEmail;
-    return this.usersService.getOneUser(email);
+  getOneUser(@Body() userId: userEmail): Promise<Users> {
+    return this.usersService.getOneUser(userId.userId);
   }
 
   @Post()
   createUser(@Body() userData: CreateUserDto) {
+    console.log(userData);
     return this.usersService.createUser(userData);
   }
   @Delete()
-  deleteUser(@Body() userEmail: userEmail) {
-    const { email } = userEmail;
-    return this.usersService.deleteUser(email);
+  deleteUser(@Body() userId: userEmail) {
+    return this.usersService.deleteUser(userId.userId);
   }
-  @Patch('/:id')
-  UpdateUser(
-    @Param('id') userId: number,
-    @Body() updateUserData: UpdateUserDto,
-  ) {
-    return this.usersService.updateUser(userId, updateUserData);
+  @Patch()
+  UpdateUser(@Param() id: string, @Body() updateUserData: UpdateUserDto) {
+    return this.usersService.updateUser(id, updateUserData);
   }
 }

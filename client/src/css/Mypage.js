@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const MypageContainer = styled.div``;
 
-export const MypageUpdateContainer = styled(MypageContainer)`
+export const MypageUpdateContainer = styled.form`
   justify-content: left;
 `;
 

@@ -17,7 +17,7 @@ export const Routers = () => {
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<Signup />} />
         <Route path="/findId" exact element={<FindId />} />
-        <Route path="/mypage" exact element={<Mypage />} />
+        <Route path="/mypage/:id" exact element={<Mypage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

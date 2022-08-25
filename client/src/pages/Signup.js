@@ -1,14 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Title } from "../css/Login";
-import {
-  Container,
-  PasswordCheckBtn,
-  SignupBtn,
-  SignupContainer,
-  SignupError,
-  SignupInput,
-  SignupText,
-} from "../css/Signup";
+import { Container, SignupBtn, SignupContainer, SignupError, SignupInput, SignupText } from "../css/Signup";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 // };
 
 export const Signup = () => {
-  const [userInfo, setUserInfo] = useState({});
   const nav = useNavigate();
   const {
     register,
@@ -28,6 +19,7 @@ export const Signup = () => {
     getValues,
   } = useForm();
 
+  console.log(getValues());
   const onSubmit = async (data) => {
     const userData = await axios.post(`http://localhost:4000/users`, data);
     nav("/");
@@ -40,17 +32,18 @@ export const Signup = () => {
       <SignupContainer onSubmit={handleSubmit(onSubmit)}>
         <Title>회원가입</Title>
         <SignupText>
-          E-mail
+          ID
           <SignupInput
-            id="email"
-            placeholder="Please Enter your E-mail"
-            {...register("email", {
-              required: "E-mail은 필수 사항입니다.",
-              pattern: { value: /\S+@\S+\.\S+/, message: "올바른 이메일 형식을 입력해주세요." },
+            id="userId"
+            placeholder="Please Enter your ID"
+            {...register("userId", {
+              required: "ID는 필수 사항입니다.",
+              pattern: { value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,21}$/, message: "올바른 ID 형식을 입력해주세요." },
             })}
           />
         </SignupText>
-        {errors.email && <SignupError role="alert">{errors.email.message}</SignupError>}
+        {errors.userId && <SignupError role="alert">{errors.userId.message}</SignupError>}
+
         <SignupText>
           Password
           <SignupInput
@@ -86,7 +79,19 @@ export const Signup = () => {
         </SignupText>
         {errors.checkPassword && <SignupError role="alert">{errors.checkPassword.message}</SignupError>}
         <SignupText>
-          Nickname{" "}
+          E-mail
+          <SignupInput
+            id="email"
+            placeholder="Please Enter your E-mail"
+            {...register("email", {
+              required: "E-mail은 필수 사항입니다.",
+              pattern: { value: /\S+@\S+\.\S+/, message: "올바른 이메일 형식을 입력해주세요." },
+            })}
+          />
+        </SignupText>
+        {errors.email && <SignupError role="alert">{errors.email.message}</SignupError>}
+        <SignupText>
+          Nickname
           <SignupInput
             id="nickname"
             placeholder="Please Enter your Nickname"

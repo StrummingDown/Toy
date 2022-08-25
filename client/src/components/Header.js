@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { HeaderContainer, HeaderIcon, HeaderLoginLink, HeaderWarp, HeaderLogout } from "../css/Header";
 import icon from "../imgs/restaurant.png";
 import { Link, useNavigate } from "react-router-dom";
-import { loginStatus } from "../store";
+import { loginStatus, userInfo } from "../store";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 export const Header = () => {
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const [state, setState] = useState(false);
+  const { email } = useRecoilValue(userInfo);
 
   const nav = useNavigate();
   const loginState = () => {
@@ -38,7 +39,7 @@ export const Header = () => {
       {isLogin ? (
         <HeaderWarp>
           <HeaderLoginLink to="/">Main</HeaderLoginLink>
-          <HeaderLoginLink to="/mypage">Mypage</HeaderLoginLink>
+          <HeaderLoginLink to={`/mypage/${email}`}> Mypage </HeaderLoginLink>
           <HeaderLogout onClick={logout}>Logout</HeaderLogout>
         </HeaderWarp>
       ) : (

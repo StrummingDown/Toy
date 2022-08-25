@@ -17,7 +17,7 @@ import { useRecoilState } from "recoil";
 import { loginStatus, userInfo } from "../store";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
+  const [userId, setuserId] = useState("");
   const [pw, setPw] = useState("");
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const [userData, setUserData] = useRecoilState(userInfo);
@@ -25,19 +25,19 @@ export const Login = () => {
   const nav = useNavigate();
 
   const onChangeId = (event) => {
-    setEmail(event.target.value);
+    setuserId(event.target.value);
   };
   const onChangePw = (event) => {
     setPw(event.target.value);
   };
 
   const login = async (loginData) => {
-    const { data } = await axios.post(`http://localhost:4000/users/login`, { email: loginData, password: pw });
+    const { data } = await axios.post(`http://localhost:4000/users/login`, { userId: loginData, password: pw });
 
     if (data) {
       setUserData(data);
       console.log(userData);
-      window.localStorage.setItem("email", email);
+      window.localStorage.setItem("userId", userId);
       window.localStorage.setItem("pw", pw);
     }
     return data;
@@ -45,7 +45,7 @@ export const Login = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const userData = await login(email);
+    const userData = await login(userId);
     console.log(userData);
     if (!userData) {
       alert("회원정보가 일치하지 않습니다.");
