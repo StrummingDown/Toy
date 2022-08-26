@@ -18,7 +18,7 @@ import { loginStatus, userInfo } from "../store";
 
 export const MypageInfo = ({ data }) => {
   const [isUpdate, setIsUpdate] = useState(false);
-  const userData = useRecoilValue(userInfo);
+  const [userData, setUserData] = useRecoilState(userInfo);
   const [nickname, setNickname] = useState(userData.nickname);
   const [email, setEmail] = useState(userData.email);
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
@@ -45,10 +45,12 @@ export const MypageInfo = ({ data }) => {
   const updateUserSubmit = async (event) => {
     // const email = window.localStorage.getItem("email");
     event.preventDefault();
-    const updateData = await axios.patch(`http://localhost:4000/users`, { nickname, email });
-    console.log(updateData);
+    const { data } = await axios.patch(`http://localhost:4000/users`, { nickname, email });
+    setUserData(data);
     setIsUpdate(!isUpdate);
   };
+
+  console.log(userData);
 
   return (
     <div>
