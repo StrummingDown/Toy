@@ -48,6 +48,7 @@ export class UsersService {
   }
   async deleteUser(email: string): Promise<Users> {
     try {
+      console.log('딜리트', email);
       return await this.prisma.users.delete({ where: { email } });
     } catch {
       throw new NotFoundException(`User with ID: ${email} not found.`);

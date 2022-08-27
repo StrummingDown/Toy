@@ -1,20 +1,23 @@
 import axios from "axios";
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { MypageInfo } from "../components/MypageInfo";
 import { Container, MypageContainer } from "../css/Mypage";
 
 export const Mypage = () => {
-  //   console.log(useRecoilValue(ex));
-
   const myInfo = async () => {
     const token = window.localStorage.getItem("token");
+    const { data } = await axios.post(`http://localhost:4000/users/mypage`, { token });
 
-    const { data } = await axios.post(`http://localhost:4000/users/mypage/`, { token });
-    console.log(data);
+    // console.log(data);
     return data;
   };
+  // const getMyInfo = async () => {
+  //   const userData = await myInfo();
+  //   console.log(userData);
+  //   return userData;
+  // };
   const userData = myInfo();
+  // console.log(ex);
 
   return (
     <Container>

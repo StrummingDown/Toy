@@ -19,10 +19,20 @@ import { loginStatus, userInfo } from "../store";
 export const MypageInfo = ({ data }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [userData, setUserData] = useRecoilState(userInfo);
+  const [userId, setUserId] = useState(userData.id);
   const [nickname, setNickname] = useState(userData.nickname);
   const [email, setEmail] = useState(userData.email);
+  const [location, setLocation] = useState(userData.location);
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
 
+  const saveUserData = async () => {
+    const { userId, nickname, email, location } = await data;
+    setUserId(userId);
+    setNickname(nickname);
+    setEmail(email);
+    setLocation(location);
+  };
+  saveUserData();
   const nav = useNavigate();
 
   const {
@@ -49,8 +59,6 @@ export const MypageInfo = ({ data }) => {
     setUserData(data);
     setIsUpdate(!isUpdate);
   };
-
-  console.log(userData);
 
   return (
     <div>
@@ -121,10 +129,10 @@ export const MypageInfo = ({ data }) => {
       ) : (
         <MypageContainer>
           <MypageTitle>마이페이지</MypageTitle>
-          <MypageContent>{`ID : ${userData.userId}`}</MypageContent>
-          <MypageContent>{`Nickname : ${userData.nickname}`}</MypageContent>
-          <MypageContent>{`E-mail : ${userData.email}`}</MypageContent>
-          <MypageContent>{`Location : ${userData.location}`}</MypageContent>
+          <MypageContent>{`ID : ${userId}`}</MypageContent>
+          <MypageContent>{`Nickname : ${nickname}`}</MypageContent>
+          <MypageContent>{`E-mail : ${email}`}</MypageContent>
+          <MypageContent>{`Location : ${location}`}</MypageContent>
           <MypageBtnWrap>
             <MypageBtn onClick={updateUser}>수정하기</MypageBtn>
             <MypageBtn onClick={withdrawal}>탈퇴하기</MypageBtn>

@@ -6,37 +6,25 @@ import { loginStatus, userInfo } from "../store";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 export const Header = () => {
-  const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const [state, setState] = useState(false);
   const { email } = useRecoilValue(userInfo);
-
+  const token = window.localStorage.getItem("token");
+  console.log(email);
   const nav = useNavigate();
-  const loginState = () => {
-    if (loginStatus) {
-      setIsLogin(true);
-      setState(true);
-    } else {
-      setIsLogin(false);
-      setState(false);
-    }
-  };
-
-  // useEffect(() => {
-  //   loginState();
-  // }, [isLogin]);
 
   const logout = () => {
-    setIsLogin(false);
     setState(false);
+    window.localStorage.removeItem("token");
     nav("/");
   };
+
   return (
     <HeaderContainer>
       <Link to="/">
         <HeaderIcon src={icon} />
       </Link>
 
-      {isLogin ? (
+      {token ? (
         <HeaderWarp>
           <HeaderLoginLink to="/">Main</HeaderLoginLink>
           <HeaderLoginLink to={`/mypage/${email}`}> Mypage </HeaderLoginLink>

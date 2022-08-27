@@ -35,7 +35,7 @@ export const Login = () => {
     const {
       data: { token, userData },
     } = await axios.post(`http://localhost:4000/users/login`, { userId: loginData, password: pw });
-    console.log(token, userData);
+
     if (token) {
       setUserData(userData);
       window.localStorage.setItem("token", token);
