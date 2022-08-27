@@ -46,12 +46,15 @@ export class UsersService {
     return user;
     // } catch {}
   }
-  async deleteUser(email: string): Promise<Users> {
+  async deleteUser({ token }: token): Promise<Users> {
     try {
-      console.log('딜리트', email);
-      return await this.prisma.users.delete({ where: { email } });
+      const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
+
+      return await this.prisma.users.delete({
+        where: { userId: userData['userId'] },
+      });
     } catch {
-      throw new NotFoundException(`User with ID: ${email} not found.`);
+      throw new NotFoundException(`User not found.`);
     }
   }
   createUser(userData: CreateUserDto): Promise<Users> {

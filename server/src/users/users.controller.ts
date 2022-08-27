@@ -60,8 +60,8 @@ export class UsersController {
     return this.usersService.createUser(userData);
   }
   @Delete()
-  deleteUser(@Body() userId: userEmail) {
-    return this.usersService.deleteUser(userId.userId);
+  deleteUser(@Body() token: token): Promise<Users> {
+    return this.usersService.deleteUser(token);
   }
   @Patch()
   UpdateUser(@Param() id: string, @Body() updateUserData: UpdateUserDto) {

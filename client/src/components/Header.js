@@ -9,7 +9,7 @@ export const Header = () => {
   const [state, setState] = useState(false);
   const { email } = useRecoilValue(userInfo);
   const token = window.localStorage.getItem("token");
-  console.log(email);
+
   const nav = useNavigate();
 
   const logout = () => {

@@ -24,6 +24,7 @@ export const MypageInfo = ({ data }) => {
   const [email, setEmail] = useState(userData.email);
   const [location, setLocation] = useState(userData.location);
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
+  const token = window.localStorage.getItem("token");
 
   const saveUserData = async () => {
     const { userId, nickname, email, location } = await data;
@@ -43,8 +44,8 @@ export const MypageInfo = ({ data }) => {
   } = useForm();
 
   const withdrawal = async () => {
-    const email = window.localStorage.getItem("email");
-    await axios.delete(`http://localhost:4000/users`, { data: { email } });
+    await axios.delete(`http://localhost:4000/users`, { data: { token } });
+    window.localStorage.removeItem("token");
     setIsLogin(false);
     nav("/");
   };
