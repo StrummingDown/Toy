@@ -72,11 +72,12 @@ export class UsersService {
   }
   async updateUser(id: string, updateDate: UpdateUserDto): Promise<Users> {
     try {
-      const { password, email, nickname } = updateDate;
-      console.log(updateDate);
+      console.log('업데이트 요청');
+      const { password, email, nickname, userId } = updateDate;
+      console.log(email, nickname, userId);
       return await this.prisma.users.update({
-        where: { email },
-        data: { password, email, nickname },
+        where: { userId: '꾸꾸까까' },
+        data: { nickname },
       });
     } catch {
       throw new NotFoundException(`User with ID: ${id} not found.`);

@@ -15,7 +15,7 @@ model Users {
   userId String @unique
   password String
   email String @unique
-  nickname String @unique
+  nickname String 
   location String
 }
 

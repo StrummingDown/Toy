@@ -56,7 +56,6 @@ export class UsersController {
 
   @Post()
   createUser(@Body() userData: CreateUserDto) {
-    console.log(userData);
     return this.usersService.createUser(userData);
   }
   @Delete()
