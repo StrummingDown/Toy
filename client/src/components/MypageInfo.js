@@ -19,19 +19,19 @@ import { loginStatus, userInfo } from "../store";
 export const MypageInfo = ({ data }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [userData, setUserData] = useRecoilState(userInfo);
-  const [userId, setUserId] = useState(userData.id);
+  const [userId, setUserId] = useState(userData.userId);
   const [nickname, setNickname] = useState(userData.nickname);
   const [email, setEmail] = useState(userData.email);
   const [location, setLocation] = useState(userData.location);
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const token = window.localStorage.getItem("token");
-
+  console.log("내정보렌더링", userData);
   const saveUserData = async () => {
     const { userId, nickname, email, location } = await data;
-    setUserId(userId);
-    setNickname(nickname);
-    setEmail(email);
-    setLocation(location);
+    //   setUserId(userId);
+    // setNickname(nickname);
+    //   setEmail(email);
+    // setLocation(location);
   };
   saveUserData();
   const nav = useNavigate();
@@ -54,9 +54,9 @@ export const MypageInfo = ({ data }) => {
     setIsUpdate(!isUpdate);
   };
   const updateUserSubmit = async (event) => {
-    // const email = window.localStorage.getItem("email");
     event.preventDefault();
-    const { data } = await axios.patch(`http://localhost:4000/users`, { nickname, email });
+    console.log(nickname, userId);
+    const { data } = await axios.patch(`http://localhost:4000/users`, { userId, nickname, email });
     setUserData(data);
     setIsUpdate(!isUpdate);
   };
@@ -75,6 +75,9 @@ export const MypageInfo = ({ data }) => {
                     type="text"
                     value={userData.userId}
                     {...register("id", {
+                      onChange: (e) => {
+                        setUserId(e.target.value);
+                      },
                       minLength: 4,
                     })}
                   />

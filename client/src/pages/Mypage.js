@@ -8,7 +8,7 @@ export const Mypage = () => {
     const token = window.localStorage.getItem("token");
     const { data } = await axios.post(`http://localhost:4000/users/mypage`, { token });
 
-    // console.log(data);
+    console.log("마이페이지 렌더링");
     return data;
   };
   // const getMyInfo = async () => {
