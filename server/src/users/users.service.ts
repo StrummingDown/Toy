@@ -94,11 +94,15 @@ export class UsersService {
         where: { userId },
       });
 
-      if (userData.password === password && userData.userId === userId) {
+      const correct = await bcrypt.compare(password, userData.password);
+
+      if (correct && userData.userId === userId) {
         return { userData, token };
       } else {
         return null;
       }
-    } catch {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
