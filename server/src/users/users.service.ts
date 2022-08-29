@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/Users.entity';
 import { PrismaService } from 'prisma/prisma.service';
 import { Users } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
 
 type userId = {
   id: number;
@@ -34,9 +34,9 @@ export class UsersService {
   }
   async getOneUser({ token }: token): Promise<Users> {
     // try { try안에서 NotFoundException이 작동하지 않는다..
-
+    console.log('마이페이지');
     const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
-
+    console.log('userData', userData);
     const user = await this.prisma.users.findUnique({
       where: { userId: userData['userId'] },
     });
@@ -57,13 +57,14 @@ export class UsersService {
       throw new NotFoundException(`User not found.`);
     }
   }
-  createUser(userData: CreateUserDto): Promise<Users> {
+  async createUser(userData: CreateUserDto): Promise<Users> {
     const { userId, password, email, nickname } = userData;
+    const hashPw = await bcrypt.hash(password, 3);
     // const id = parseInt(String(new Date().getTime()).substring(0, 4)); // 고유한 id 부여
     return this.prisma.users.create({
       data: {
         userId,
-        password,
+        password: hashPw,
         email,
         nickname,
         location: '서울',
