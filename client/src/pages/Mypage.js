@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useResetRecoilState } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { MypageInfo } from "../components/MypageInfo";
 import { Container, MypageContainer } from "../css/Mypage";
-import { userInfo } from "../store";
+import { userToken, userInfo } from "../store";
 
 export const Mypage = () => {
   const expriedToken = useResetRecoilState(userInfo);
+  const token = useRecoilValue(userToken);
   const myInfo = async () => {
-    const token = window.localStorage.getItem("token");
     const { data } = await axios.post(`http://localhost:4000/users/mypage`, { token });
     if (!data) {
       expriedToken();

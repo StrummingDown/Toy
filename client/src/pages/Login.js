@@ -14,13 +14,14 @@ import { useState, React } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { loginStatus, userInfo } from "../store";
+import { loginStatus, userToken, userInfo } from "../store";
 
 export const Login = () => {
   const [userId, setuserId] = useState("");
   const [pw, setPw] = useState("");
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const [userData, setUserData] = useRecoilState(userInfo);
+  const [token, setToken] = useRecoilState(userToken);
 
   const nav = useNavigate();
 
@@ -38,7 +39,7 @@ export const Login = () => {
 
     if (token) {
       setUserData(userData);
-      window.localStorage.setItem("token", token);
+      setToken(token);
     }
     return userData;
   };

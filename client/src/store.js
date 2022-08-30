@@ -11,6 +11,11 @@ export const userInfo = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const userToken = atom({
+  key: "userToken",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
 // 타입스크립트였다면 ..
 
 // export interface IUser {

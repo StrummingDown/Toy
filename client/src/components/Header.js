@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import { HeaderContainer, HeaderIcon, HeaderLoginLink, HeaderWarp, HeaderLogout } from "../css/Header";
 import icon from "../imgs/restaurant.png";
 import { Link, useNavigate } from "react-router-dom";
-import { loginStatus, userInfo } from "../store";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { userInfo, userToken } from "../store";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 
 export const Header = () => {
   const [state, setState] = useState(false);
   const { email } = useRecoilValue(userInfo);
-  const token = window.localStorage.getItem("token");
-
+  const token = useRecoilValue(userToken);
+  const deleteToken = useResetRecoilState(userToken);
   const nav = useNavigate();
 
   const logout = () => {
     setState(false);
-    window.localStorage.removeItem("token");
+    deleteToken();
     nav("/");
   };
 
