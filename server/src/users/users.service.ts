@@ -33,18 +33,20 @@ export class UsersService {
     return this.prisma.users.findMany();
   }
   async getOneUser({ token }: token): Promise<Users> {
-    // try { try안에서 NotFoundException이 작동하지 않는다..
-    console.log('마이페이지');
-    const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
-    console.log('userData', userData);
-    const user = await this.prisma.users.findUnique({
-      where: { userId: userData['userId'] },
-    });
-    if (!user) {
-      throw new NotFoundException(`User with ID: ${token} not found.`);
-    }
-    return user;
-    // } catch {}
+    try {
+      //try안에서 NotFoundException이 작동하지 않는다..
+      console.log('마이페이지', token);
+
+      const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
+      console.log('userData', userData);
+      const user = await this.prisma.users.findUnique({
+        where: { userId: userData['userId'] },
+      });
+      if (!user) {
+        throw new NotFoundException(`User with ID: ${token} not found.`);
+      }
+      return user;
+    } catch {}
   }
   async deleteUser({ token }: token): Promise<Users> {
     try {
