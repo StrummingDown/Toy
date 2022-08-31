@@ -7,6 +7,7 @@ import { Login } from "./pages/Login";
 import { Main } from "./pages/Main";
 import { FindId } from "./pages/FindId";
 import { Mypage } from "./pages/Mypage";
+import { FindPw } from "./pages/FindPw";
 
 export const Routers = () => {
   return (
@@ -16,7 +17,8 @@ export const Routers = () => {
         <Route path="/" exact element={<Main />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<Signup />} />
-        <Route path="/findId" exact element={<FindId />} />
+        <Route path="/find/id" exact element={<FindId />} />
+        <Route path="/find/pw" exact element={<FindPw />} />
         <Route path="/mypage/:id" exact element={<Mypage />} />
       </Routes>
       <Footer />

@@ -2,6 +2,7 @@
   "name": "login-form",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://sens.apigw.ntruss.com",
   "dependencies": {
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.18.13",
