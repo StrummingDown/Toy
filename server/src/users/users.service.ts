@@ -31,6 +31,7 @@ type userData = {
   email: string;
   location: string;
 };
+const date = Date.now().toString();
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
@@ -44,11 +45,11 @@ export class UsersService {
     const space = ' ';
     const newLine = '\n';
     const method = 'POST';
-    const timestamp = Date.now().toString();
+    const timestamp = date;
     message.push(method);
     message.push(space);
     message.push(
-      'https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:291860026013:sms_certify/messages',
+      '/sms/v2/services/ncp:sms:kr:291860026013:sms_certify/messages',
     );
     message.push(newLine);
     message.push(timestamp);
@@ -138,6 +139,8 @@ export class UsersService {
     }
   }
   async certify(phoneNumber: string) {
+    console.log(date);
+    console.log('인증', this.makeSignature());
     const body = {
       type: 'SMS',
       contentType: 'COMM',
@@ -146,7 +149,7 @@ export class UsersService {
       content: `테스트다 !!!`,
       messages: [
         {
-          to: '01039022841', // 수신자 번호
+          to: phoneNumber, // 수신자 번호
         },
       ],
     };
@@ -154,7 +157,7 @@ export class UsersService {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'x-ncp-iam-access-key': '3VS7DXEJO5nJmUbtJgdE',
-        'x-ncp-apigw-timestamp': Date.now().toString(),
+        'x-ncp-apigw-timestamp': date,
         'x-ncp-apigw-signature-v2': this.makeSignature(),
       },
     };
