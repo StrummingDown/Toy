@@ -12,10 +12,6 @@ import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import axios from 'axios';
 
-type userId = {
-  id: number;
-};
-
 type loginType = {
   userData: Users;
   token: string;
@@ -32,34 +28,30 @@ type userData = {
   location: string;
 };
 const date = Date.now().toString();
+
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
-
   private makeSignature(): string {
     const message = [];
-    const hmac = crypto.createHmac(
-      'sha256',
-      'RvtrDPOZi4AnXKMxxUaAgvZADm5TAUd3XhNhL1wo',
-    );
+    const hmac = crypto.createHmac('sha256', process.env.SMS_SECRET_KEY);
     const space = ' ';
     const newLine = '\n';
     const method = 'POST';
-    const timestamp = date;
+    const timestamp = Date.now().toString();
     message.push(method);
     message.push(space);
-    message.push(
-      '/sms/v2/services/ncp:sms:kr:291860026013:sms_certify/messages',
-    );
+    message.push(`/sms/v2/services/${process.env.SMS_SERVICE_ID}/messages`);
     message.push(newLine);
     message.push(timestamp);
     message.push(newLine);
-    message.push('3VS7DXEJO5nJmUbtJgdE');
+    message.push(process.env.SMS_ACCESS_KEY);
     //message 배열에 위의 내용들을 담아준 후에
     const signature = hmac.update(message.join('')).digest('base64');
     //message.join('') 으로 만들어진 string 을 hmac 에 담고, base64로 인코딩한다
     return signature.toString(); // toString()이 없었어서 에러가 자꾸 났었는데, 반드시 고쳐야함.
   }
+
   async getAllUsers(): Promise<Users[]> {
     return this.prisma.users.findMany();
   }
@@ -139,43 +131,46 @@ export class UsersService {
     }
   }
   async certify(phoneNumber: string) {
-    console.log(date);
-    console.log('인증', this.makeSignature());
-    const body = {
-      type: 'SMS',
-      contentType: 'COMM',
-      countryCode: '82',
-      from: '01039022841', // 발신자 번호
-      content: `테스트다 !!!`,
-      messages: [
-        {
-          to: phoneNumber, // 수신자 번호
-        },
-      ],
-    };
-    const options = {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'x-ncp-iam-access-key': '3VS7DXEJO5nJmUbtJgdE',
-        'x-ncp-apigw-timestamp': date,
-        'x-ncp-apigw-signature-v2': this.makeSignature(),
-      },
-    };
-    const data = axios
-      .post(
-        'https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:291860026013:sms_certify/messages',
-        body,
-        options,
-      )
-      .then(async (res) => {
-        // 성공 이벤트
-        console.log('성공', res);
-      })
-      .catch((err) => {
-        console.error(err.response.data);
-        throw new InternalServerErrorException();
-      });
+    try {
+      const code = String(Math.floor(100000 + Math.random() * 9000));
 
-    return data;
+      const body = {
+        type: 'SMS',
+        contentType: 'COMM',
+        countryCode: '82',
+        from: '01039022841', // 발신자 번호
+        content: `인증 번호는 ${code} 입니다.`,
+        messages: [
+          {
+            to: phoneNumber, // 수신자 번호
+          },
+        ],
+      };
+      const options = {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'x-ncp-iam-access-key': '3VS7DXEJO5nJmUbtJgdE',
+          'x-ncp-apigw-timestamp': Date.now().toString(),
+          'x-ncp-apigw-signature-v2': this.makeSignature(),
+        },
+      };
+      axios
+        .post(
+          `https://sens.apigw.ntruss.com/sms/v2/services/${process.env.SMS_SERVICE_ID}/messages`,
+          body,
+          options,
+        )
+        .then(async (res) => {
+          // 성공 이벤트
+          console.log('성공', res);
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+          throw new InternalServerErrorException();
+        });
+      return code;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

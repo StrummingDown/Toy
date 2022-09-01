@@ -40,18 +40,17 @@ export class UsersController {
     return this.usersService.getAllUsers();
   }
   @Post('certify')
-  async certify() {
-    return this.usersService.certify('01039022841');
+  async certify(): Promise<string> {
+    return this.usersService.certify('01012345678');
   }
   @Post('login')
-  login(@Body() body: body) {
+  login(@Body() body: body): Promise<object> | null {
     const { userId, nickname, password, location } = body;
     const token = jwt.sign(
       { userId, nickname, password, location },
       process.env.ACCESS_SECRET_KEY,
       { expiresIn: '24h' },
     );
-
     return this.usersService.login(userId, password, token);
   }
   @Post('/mypage')
@@ -60,7 +59,7 @@ export class UsersController {
   }
 
   @Post()
-  createUser(@Body() userData: CreateUserDto) {
+  createUser(@Body() userData: CreateUserDto): Promise<Users> {
     return this.usersService.createUser(userData);
   }
   @Delete()
@@ -68,7 +67,10 @@ export class UsersController {
     return this.usersService.deleteUser(token);
   }
   @Patch()
-  UpdateUser(@Param() id: string, @Body() updateUserData: UpdateUserDto) {
+  UpdateUser(
+    @Param() id: string,
+    @Body() updateUserData: UpdateUserDto,
+  ): Promise<Users> {
     return this.usersService.updateUser(id, updateUserData);
   }
 }
