@@ -39,9 +39,9 @@ export class UsersController {
   getAllUsers(): Promise<Users[]> {
     return this.usersService.getAllUsers();
   }
-  @Post('certify')
+  @Get('certify')
   async certify(): Promise<string> {
-    return this.usersService.certify('01012345678');
+    return this.usersService.certify('01039022841');
   }
   @Post('login')
   login(@Body() body: body): Promise<object> | null {

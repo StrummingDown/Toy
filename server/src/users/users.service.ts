@@ -38,7 +38,7 @@ export class UsersService {
     const space = ' ';
     const newLine = '\n';
     const method = 'POST';
-    const timestamp = Date.now().toString();
+    const timestamp = date;
     message.push(method);
     message.push(space);
     message.push(`/sms/v2/services/${process.env.SMS_SERVICE_ID}/messages`);
@@ -132,6 +132,7 @@ export class UsersService {
   }
   async certify(phoneNumber: string) {
     try {
+      console.log('실행');
       const code = String(Math.floor(100000 + Math.random() * 9000));
 
       const body = {
@@ -150,7 +151,7 @@ export class UsersService {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'x-ncp-iam-access-key': '3VS7DXEJO5nJmUbtJgdE',
-          'x-ncp-apigw-timestamp': Date.now().toString(),
+          'x-ncp-apigw-timestamp': date,
           'x-ncp-apigw-signature-v2': this.makeSignature(),
         },
       };

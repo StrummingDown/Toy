@@ -3,39 +3,11 @@ import { Container, FindIdBtn, FindIdContainer, FindIdInput, FindIdText, Title }
 import axios from "axios";
 
 export const FindId = () => {
-  let cnt = 0;
-  const timestamp = Date.now().toString();
-  const serviceId = "ncp:sms:kr:291860026013:sms_certify";
   const sendCertifyNumber = async () => {
-    const data = await axios.post(
-      `https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`,
-      {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "x-ncp-apigw-timestamp": timestamp,
-          "x-ncp-iam-access-key": "3VS7DXEJO5nJmUbtJgdE",
-          "x-ncp-apigw-signature-v2": "RvtrDPOZi4AnXKMxxUaAgvZADm5TAUd3XhNhL1wo",
-        },
-      },
-      {
-        type: "SMS",
-        contentType: "COMM",
-        countryCode: "82",
-        from: "01039022841",
-        subject: "string",
-        content: "string",
-        messages: [
-          {
-            to: "윤대규",
-            subject: "테스트",
-            content: "연습입니다.",
-          },
-        ],
-      }
-    );
     // alert("인증번호를 전송했습니다.");
-    console.log(`인증데이터 :${cnt}`, data);
-    cnt += 1;
+    const certifyNumber = await axios.get("http://localhost:4000/users/certify");
+    console.log(certifyNumber);
+    return;
   };
   return (
     <Container>
