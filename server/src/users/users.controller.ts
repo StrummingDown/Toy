@@ -26,8 +26,8 @@ type body = {
 type userId = {
   id: number;
 };
-type userEmail = {
-  userId: string;
+type inputEmail = {
+  email: string;
 };
 type token = {
   token: string;
@@ -57,7 +57,10 @@ export class UsersController {
   getOneUser(@Body() token: token): Promise<Users> {
     return this.usersService.getOneUser(token);
   }
-
+  @Post('/findId')
+  findUserId(@Body() email: inputEmail): Promise<Users> {
+    return this.usersService.findUserId(email);
+  }
   @Post()
   createUser(@Body() userData: CreateUserDto): Promise<Users> {
     return this.usersService.createUser(userData);

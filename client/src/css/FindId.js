@@ -23,8 +23,17 @@ export const FindIdBtn = styled.button`
   background-color: skyblue;
   border: 1px solid black;
   border-radius: 5px;
+  margin: 0px 2px;
+
   &:active {
     box-shadow: inset -0.3rem -0.1rem 1.4rem #fbfbfb, inset 0.3rem 0.4rem 0.8rem #bec5d0;
     cursor: pointer;
   }
+`;
+
+export const CheckText = styled.div`
+  color: red;
+`;
+export const CorrectText = styled.div`
+  color: blue;
 `;

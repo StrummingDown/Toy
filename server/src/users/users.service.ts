@@ -27,6 +27,9 @@ type userData = {
   email: string;
   location: string;
 };
+type inputEmail = {
+  email: string;
+};
 const date = Date.now().toString();
 
 @Injectable()
@@ -70,6 +73,13 @@ export class UsersService {
       }
       return user;
     } catch {}
+  }
+  async findUserId({ email }: inputEmail): Promise<Users> {
+    try {
+      return await this.prisma.users.findUnique({ where: { email } });
+    } catch (err) {
+      console.log(err);
+    }
   }
   async deleteUser({ token }: token): Promise<Users> {
     try {
