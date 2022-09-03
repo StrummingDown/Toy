@@ -39,9 +39,10 @@ export class UsersController {
   getAllUsers(): Promise<Users[]> {
     return this.usersService.getAllUsers();
   }
-  @Get('certify')
-  async certify(): Promise<string> {
-    return this.usersService.certify('01039022841');
+  @Post('certify')
+  async certify(@Body() { phone }: { phone: string }): Promise<string> {
+    console.log('인증', phone);
+    return this.usersService.certify(phone);
   }
   @Post('login')
   login(@Body() body: body): Promise<object> | null {

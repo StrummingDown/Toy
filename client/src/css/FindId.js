@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -30,6 +31,7 @@ export const FindIdBtn = styled.button`
     cursor: pointer;
   }
 `;
+export const FindIdLink = styled(Link)``;
 
 export const CheckText = styled.div`
   color: red;

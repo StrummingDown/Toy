@@ -17,5 +17,6 @@ model Users {
   email String @unique
   nickname String 
   location String
+  phone String
 }
 

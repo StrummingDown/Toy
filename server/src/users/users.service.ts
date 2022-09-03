@@ -140,9 +140,8 @@ export class UsersService {
       console.log(e);
     }
   }
-  async certify(phoneNumber: string) {
+  async certify(phone: string) {
     try {
-      console.log('실행');
       const code = String(Math.floor(100000 + Math.random() * 9000));
 
       const body = {
@@ -153,7 +152,7 @@ export class UsersService {
         content: `인증 번호는 ${code} 입니다.`,
         messages: [
           {
-            to: phoneNumber, // 수신자 번호
+            to: phone, // 수신자 번호
           },
         ],
       };

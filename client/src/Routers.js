@@ -8,6 +8,7 @@ import { Main } from "./pages/Main";
 import { FindId } from "./pages/FindId";
 import { Mypage } from "./pages/Mypage";
 import { FindPw } from "./pages/FindPw";
+import { ResultId } from "./components/ResultId";
 
 export const Routers = () => {
   return (
@@ -20,6 +21,7 @@ export const Routers = () => {
         <Route path="/find/id" exact element={<FindId />} />
         <Route path="/find/pw" exact element={<FindPw />} />
         <Route path="/mypage/:id" exact element={<Mypage />} />
+        <Route path="/find/id/result" exact element={<ResultId />} />
       </Routes>
       <Footer />
     </BrowserRouter>
