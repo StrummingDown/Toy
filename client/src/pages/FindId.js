@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from "react";
-import {
-  CheckText,
-  Container,
-  CorrectText,
-  FindIdBtn,
-  FindIdContainer,
-  FindIdInput,
-  FindIdText,
-  Title,
-} from "../css/FindId";
+import React, { useState } from "react";
+import { Container, FindIdBtn, FindIdContainer, FindIdInput, FindIdText, Title } from "../css/FindId";
 import axios from "axios";
 import { ResultId } from "../components/ResultId";
 import { FindIdModal } from "../modal/FindIdModal";
 
 export const FindId = () => {
-  const [certifyNumber, setCertifyNumber] = useState(0);
+  const [certifyNumber, setCertifyNumber] = useState(111111);
   const [inputCertifyNumber, setInputCertiyNumber] = useState(-1);
   const [checkNumber, setCheckNumber] = useState(false);
   const [email, setEmail] = useState("");
@@ -23,16 +14,9 @@ export const FindId = () => {
   const [userId, setUserId] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
-  // useEffect(() => {
-  //   checkCertifyNumber();
-  // }, [checkNumber]);
   const openModal = () => {
-    console.log("확인", checkNumber);
-    if (!checkNumber) {
-      setModalOpen(true, () => {
-        checkNumber();
-      });
-    }
+    // console.log("확인", checkNumber);
+    setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
@@ -49,12 +33,14 @@ export const FindId = () => {
   const checkCertifyNumber = () => {
     if (certifyNumber === inputCertifyNumber) {
       setCheckNumber(true);
+      openModal();
     } else {
       setCheckNumber(false);
+      openModal();
     }
   };
   const inputNumber = (e) => {
-    console.log("여기", certifyNumber, inputCertifyNumber.length, phone.length);
+    console.log("여기", certifyNumber);
     setInputCertiyNumber(parseInt(e.target.value));
   };
 
@@ -71,6 +57,7 @@ export const FindId = () => {
     var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
     console.log("이메일 유효성 검사 :: ", regExp.test(e.target.value));
+    return regExp.test(e.target.value);
   };
   return (
     <Container>
@@ -84,10 +71,13 @@ export const FindId = () => {
       ) : (
         <FindIdContainer>
           <Title>아이디 찾기</Title>
+          <FindIdModal
+            open={modalOpen}
+            close={closeModal}
+            header="인증번호 확인"
+            content={checkNumber ? "인증번호가 일치합니다." : "인증번호가 일치하지 않습니다."}
+          />
 
-          <FindIdModal open={modalOpen} close={closeModal} header="Modal heading">
-            인증번호가 일치하지 않습니다 !
-          </FindIdModal>
           <FindIdText>E-mail</FindIdText>
           <FindIdInput
             onBlur={checkEmail}
@@ -102,9 +92,6 @@ export const FindId = () => {
           <FindIdBtn
             onClick={() => {
               checkCertifyNumber();
-
-              openModal();
-              // }
             }}
           >
             인증번호 확인
@@ -113,7 +100,11 @@ export const FindId = () => {
             {/* {!checkNumber && inputCertifyNumber !== -1 ? <CheckText>인증 번호가 일치하지 않습니다!</CheckText> : ""} */}
             <FindIdBtn
               disabled={
-                phone.length === 11 && String(inputCertifyNumber).length === 6 && String(certifyNumber).length === 6
+                checkNumber &&
+                checkEmail &&
+                phone.length === 11 &&
+                String(inputCertifyNumber).length === 6 &&
+                String(certifyNumber).length === 6
                   ? false
                   : true
               }

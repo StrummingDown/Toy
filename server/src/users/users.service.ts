@@ -175,8 +175,8 @@ export class UsersService {
           console.log('성공', res);
         })
         .catch((err) => {
-          console.error(err.response.data);
-          throw new InternalServerErrorException();
+          console.error(err.response);
+          // throw new InternalServerErrorException();
         });
       return code;
     } catch (err) {

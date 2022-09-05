@@ -3,7 +3,7 @@ import "../css/FindIdModal.css";
 
 export const FindIdModal = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header } = props;
+  const { open, close, header, content } = props;
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -16,7 +16,7 @@ export const FindIdModal = (props) => {
               &times;
             </button>
           </header>
-          <main>{props.children}</main>
+          <main>{content}</main>
           <footer>
             <button className="close" onClick={close}>
               close
