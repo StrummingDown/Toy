@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { MypageInfo } from "../components/MypageInfo";
 import { Container, MypageContainer } from "../css/Mypage";

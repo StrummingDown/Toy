@@ -16,7 +16,7 @@ import {
 } from "../css/Mypage";
 import { loginStatus, userInfo } from "../store";
 
-export const MypageInfo = ({ data }) => {
+export const MypageInfo = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [userData, setUserData] = useRecoilState(userInfo);
   const [userId, setUserId] = useState(userData.userId);
@@ -25,16 +25,17 @@ export const MypageInfo = ({ data }) => {
   const [location, setLocation] = useState(userData.location);
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const token = window.localStorage.getItem("token");
+  const nav = useNavigate();
+
   console.log("내정보렌더링", userData);
   const saveUserData = async () => {
-    const { userId, nickname, email, location } = await data;
+    // const { userId, nickname, email, location } = await data;
     //   setUserId(userId);
     // setNickname(nickname);
     //   setEmail(email);
     // setLocation(location);
   };
   saveUserData();
-  const nav = useNavigate();
 
   const {
     register,
@@ -59,6 +60,9 @@ export const MypageInfo = ({ data }) => {
     const { data } = await axios.patch(`http://localhost:4000/users`, { userId, nickname, email });
     setUserData(data);
     setIsUpdate(!isUpdate);
+  };
+  const changePw = () => {
+    nav("/mypage/change/pw");
   };
 
   return (
@@ -138,7 +142,8 @@ export const MypageInfo = ({ data }) => {
           <MypageContent>{`E-mail : ${email}`}</MypageContent>
           <MypageContent>{`Location : ${location}`}</MypageContent>
           <MypageBtnWrap>
-            <MypageBtn onClick={updateUser}>수정하기</MypageBtn>
+            <MypageBtn onClick={changePw}>비밀번호 변경하기</MypageBtn>
+            <MypageBtn onClick={updateUser}>회원정보 수정하기</MypageBtn>
             <MypageBtn onClick={withdrawal}>탈퇴하기</MypageBtn>
           </MypageBtnWrap>
         </MypageContainer>

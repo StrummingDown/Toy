@@ -61,10 +61,9 @@ export class UsersService {
   async getOneUser({ token }: token): Promise<Users> {
     try {
       //try안에서 NotFoundException이 작동하지 않는다..
-      console.log('마이페이지', token);
 
       const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
-      console.log('userData', userData);
+      // console.log('userData', userData);
       const user = await this.prisma.users.findUnique({
         where: { userId: userData['userId'] },
       });
@@ -107,6 +106,39 @@ export class UsersService {
       throw new NotFoundException(`User not found.`);
     }
   }
+  async changeUserPw({
+    userId,
+    currentPw,
+    changePw,
+  }: {
+    userId: string;
+    currentPw: string;
+    changePw: string;
+  }): Promise<boolean> {
+    try {
+      const { password } = await this.prisma.users.findFirst({
+        where: { userId },
+      });
+
+      const correct = await bcrypt.compare(currentPw, password);
+
+      if (correct) {
+        const hashPw = await bcrypt.hash(changePw, 3);
+        await this.prisma.users.update({
+          where: { userId },
+          data: {
+            password: hashPw,
+          },
+        });
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async deleteUser({ token }: token): Promise<Users> {
     try {
       const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
@@ -132,6 +164,7 @@ export class UsersService {
       },
     });
   }
+
   async updateUser(id: string, updateDate: UpdateUserDto): Promise<Users> {
     try {
       console.log('업데이트 요청');

@@ -41,7 +41,6 @@ export class UsersController {
   }
   @Post('certify')
   async certify(@Body() { phone }: { phone: string }): Promise<string> {
-    console.log('인증', phone);
     return this.usersService.certify(phone);
   }
   @Post('login')
@@ -69,6 +68,21 @@ export class UsersController {
   @Post('/findPw')
   findUserPw(@Body() userId: { userId: string }): Promise<string> {
     return this.usersService.findUserPw(userId);
+  }
+  @Post('/changePw')
+  changeUserPw(
+    @Body()
+    {
+      userId,
+      currentPw,
+      changePw,
+    }: {
+      userId: string;
+      currentPw: string;
+      changePw: string;
+    },
+  ): Promise<boolean> {
+    return this.usersService.changeUserPw({ userId, currentPw, changePw });
   }
 
   @Post()
