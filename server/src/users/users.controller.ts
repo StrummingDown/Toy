@@ -62,6 +62,15 @@ export class UsersController {
   findUserId(@Body() email: inputEmail): Promise<Users> {
     return this.usersService.findUserId(email);
   }
+  @Post('/checkId')
+  checkUserId(@Body() userId: { userId: string }): Promise<boolean> {
+    return this.usersService.checkUserId(userId);
+  }
+  @Post('/findPw')
+  findUserPw(@Body() userId: { userId: string }): Promise<string> {
+    return this.usersService.findUserPw(userId);
+  }
+
   @Post()
   createUser(@Body() userData: CreateUserDto): Promise<Users> {
     return this.usersService.createUser(userData);

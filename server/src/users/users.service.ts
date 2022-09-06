@@ -81,6 +81,32 @@ export class UsersService {
       console.log(err);
     }
   }
+  async checkUserId({ userId }: { userId: string }): Promise<boolean> {
+    try {
+      const user = await this.prisma.users.findUnique({ where: { userId } });
+      if (user) {
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async findUserPw({ userId }: { userId: string }): Promise<string> {
+    try {
+      const changePw = Math.random().toString(36).slice(2);
+      await this.prisma.users.update({
+        where: { userId },
+        data: {
+          password: changePw,
+        },
+      });
+
+      return changePw;
+    } catch {
+      throw new NotFoundException(`User not found.`);
+    }
+  }
   async deleteUser({ token }: token): Promise<Users> {
     try {
       const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
