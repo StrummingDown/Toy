@@ -10,6 +10,7 @@ export const Mypage = () => {
   const token = useRecoilValue(userToken);
   const myInfo = async () => {
     const { data } = await axios.post(`http://localhost:4000/users/mypage`, { token });
+    console.log("마이페이지", data);
     if (!data) {
       expriedToken();
       window.alert("토큰이 만료되었습니다. 로그인을 다시 해주세요.");

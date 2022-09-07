@@ -141,10 +141,10 @@ export class UsersService {
 
   async deleteUser({ token }: token): Promise<Users> {
     try {
-      const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
+      // const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
 
       return await this.prisma.users.delete({
-        where: { userId: userData['userId'] },
+        where: { userId: '휘인' },
       });
     } catch {
       throw new NotFoundException(`User not found.`);
@@ -168,10 +168,10 @@ export class UsersService {
   async updateUser(id: string, updateDate: UpdateUserDto): Promise<Users> {
     try {
       console.log('업데이트 요청');
-      const { password, email, nickname, userId } = updateDate;
+      const { email, nickname, userId } = updateDate;
       console.log(email, nickname, userId);
       return await this.prisma.users.update({
-        where: { userId: '꾸꾸까까' },
+        where: { userId },
         data: { nickname },
       });
     } catch {

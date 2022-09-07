@@ -27,7 +27,7 @@ export const MypageInfo = () => {
   const token = window.localStorage.getItem("token");
   const nav = useNavigate();
 
-  console.log("내정보렌더링", userData);
+  // console.log("내정보렌더링", userData);
   const saveUserData = async () => {
     // const { userId, nickname, email, location } = await data;
     //   setUserId(userId);
@@ -56,8 +56,9 @@ export const MypageInfo = () => {
   };
   const updateUserSubmit = async (event) => {
     event.preventDefault();
-    console.log(nickname, userId);
+    // console.log("업데이트", userId, nickname, userId);
     const { data } = await axios.patch(`http://localhost:4000/users`, { userId, nickname, email });
+
     setUserData(data);
     setIsUpdate(!isUpdate);
   };
