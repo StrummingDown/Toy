@@ -13,8 +13,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import * as jwt from 'jsonwebtoken';
-import axios from 'axios';
-import * as CryptoJS from 'crypto';
 
 type body = {
   userId: string;
