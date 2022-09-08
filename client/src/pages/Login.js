@@ -56,27 +56,25 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <Container>
-        <div>왼쪽</div>
-        <LoginContainer onSubmit={onSubmit}>
-          <Title>Login</Title>
-          <LoginText>
-            ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
-          </LoginText>
-          <LoginText>
-            Password <LoginInput onChange={onChangePw} type="password" placeholder="Please enter your Password" />
-          </LoginText>
-          <LoginBtnDiv>
-            <LoginBtn>로그인</LoginBtn>
-          </LoginBtnDiv>
-          <FinderText>
-            <SubLink to="/find/id"> 아이디 찾기 </SubLink>|<SubLink to="/find/pw"> 비밀번호 찾기 </SubLink>|
-            <SubLink to="/signup">회원가입</SubLink>
-          </FinderText>
-        </LoginContainer>
-        <div>오른쪽</div>
-      </Container>
-    </div>
+    <Container>
+      <div>왼쪽</div>
+      <LoginContainer onSubmit={onSubmit}>
+        <Title>Login</Title>
+        <LoginText>
+          ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
+        </LoginText>
+        <LoginText>
+          Password <LoginInput onChange={onChangePw} type="password" placeholder="Please enter your Password" />
+        </LoginText>
+        <LoginBtnDiv>
+          <LoginBtn>로그인</LoginBtn>
+        </LoginBtnDiv>
+        <FinderText>
+          <SubLink to="/find/id"> 아이디 찾기 </SubLink>|<SubLink to="/find/pw"> 비밀번호 찾기 </SubLink>|
+          <SubLink to="/signup">회원가입</SubLink>
+        </FinderText>
+      </LoginContainer>
+      <div>오른쪽</div>
+    </Container>
   );
 };

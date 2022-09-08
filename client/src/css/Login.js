@@ -4,22 +4,29 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  background-color: red;
-  height: auto;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
 `;
 
 export const LoginContainer = styled.form`
   display: flex;
   flex-direction: column;
-  background-color: blue;
-  height: 240px;
+  border-style: solid;
+  border-color: skyblue;
+  border-radius: 10px;
+  border-width: 3px;
+  margin: 20px 0px;
+  background-color: lightblue;
+  height: 100%;
 `;
 
 export const LoginText = styled.div`
   display: flex;
   justify-content: right;
-  margin: 0px 10px;
-  background-color: yellow;
+  margin: 2px 10px;
+
   align-items: center;
   height: 40px;
 `;
