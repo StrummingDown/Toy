@@ -2,12 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background: linear-gradient(to left, white 20%, skyblue);
-  height: 100%;
-  width: 100%;
 `;
 
 export const FooterText = styled.div`
-  margin: 3px 0px;
+  margin-top: 3px;
   text-align: center;
 `;
 

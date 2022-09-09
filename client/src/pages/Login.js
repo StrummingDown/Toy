@@ -10,11 +10,12 @@ import {
   FinderText,
   SubLink,
 } from "../css/Login";
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginStatus, userToken, userInfo } from "../store";
+import { debounce } from "lodash";
 
 export const Login = () => {
   const [userId, setuserId] = useState("");
@@ -22,6 +23,10 @@ export const Login = () => {
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
   const [userData, setUserData] = useRecoilState(userInfo);
   const [token, setToken] = useRecoilState(userToken);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   const nav = useNavigate();
 
@@ -54,27 +59,47 @@ export const Login = () => {
       nav("/");
     }
   };
+  const handleResize = debounce(() => {
+    setWindowSize({
+      width: window.innerWidth + "px",
+      height: window.innerHeight + "px",
+    });
+    console.log(`브라우저 화면 사이즈 x : : ${window.innerWidth}, y: ${window.innerHeight}`);
+  }, 1000);
+
+  useEffect(() => {
+    window.addEventListener(`resize`, handleResize);
+    return () => {
+      window.removeEventListener(`resize`, handleResize);
+    };
+  }, []);
 
   return (
-    <Container>
-      <div>왼쪽</div>
-      <LoginContainer onSubmit={onSubmit}>
-        <Title>Login</Title>
-        <LoginText>
-          ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
-        </LoginText>
-        <LoginText>
-          Password <LoginInput onChange={onChangePw} type="password" placeholder="Please enter your Password" />
-        </LoginText>
-        <LoginBtnDiv>
-          <LoginBtn>로그인</LoginBtn>
-        </LoginBtnDiv>
-        <FinderText>
-          <SubLink to="/find/id"> 아이디 찾기 </SubLink>|<SubLink to="/find/pw"> 비밀번호 찾기 </SubLink>|
-          <SubLink to="/signup">회원가입</SubLink>
-        </FinderText>
-      </LoginContainer>
-      <div>오른쪽</div>
-    </Container>
+    <div style={{ height: windowSize.height }}>
+      <Container>
+        <div>
+          사이즈 x:{windowSize.width} y : {windowSize.height}
+        </div>
+        <LoginContainer onSubmit={onSubmit}>
+          <div style={{ height: "80%", width: "100%" }}>
+            <Title>Login</Title>
+            <LoginText>
+              ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
+            </LoginText>
+            <LoginText>
+              Password <LoginInput onChange={onChangePw} type="password" placeholder="Please enter your Password" />
+            </LoginText>
+            <LoginBtnDiv>
+              <LoginBtn>로그인</LoginBtn>
+            </LoginBtnDiv>
+            <FinderText>
+              <SubLink to="/find/id"> 아이디 찾기 </SubLink>|<SubLink to="/find/pw"> 비밀번호 찾기 </SubLink>|
+              <SubLink to="/signup">회원가입</SubLink>
+            </FinderText>
+          </div>
+        </LoginContainer>
+        <div>오른쪽</div>
+      </Container>
+    </div>
   );
 };

@@ -5,9 +5,9 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin-top: 20px;
+  height: 60%;
   width: 100%;
-  height: 100%;
 `;
 
 export const LoginContainer = styled.form`
@@ -17,36 +17,39 @@ export const LoginContainer = styled.form`
   border-color: skyblue;
   border-radius: 10px;
   border-width: 3px;
-  margin: 20px 0px;
+  width: 400px;
+  height: 400px;
   background-color: lightblue;
-  height: 100%;
 `;
 
 export const LoginText = styled.div`
   display: flex;
   justify-content: right;
-  margin: 2px 10px;
-
   align-items: center;
+  margin: 2px 10px;
   height: 40px;
+  width: 80%;
 `;
 
 export const FinderText = styled(LoginText)`
   justify-content: center;
+  width: 100%;
+  height: 100%;
 `;
 
 export const LoginInput = styled.input`
   margin-left: 10px;
   height: 20px;
-  width: 170px;
+  width: 60%;
 `;
 
 export const LoginBtnDiv = styled.div`
   text-align: center;
   margin-top: 10px;
+  width: 100%;
 `;
 export const LoginBtn = styled.button`
-  width: 200px;
+  width: 70%;
   border-radius: 10px;
   font-size: 20px;
   background-color: skyblue;
@@ -58,6 +61,7 @@ export const LoginBtn = styled.button`
 
 export const Title = styled.h2`
   text-align: center;
+  width: 100%;
 `;
 
 export const SubBtn = styled.button`
