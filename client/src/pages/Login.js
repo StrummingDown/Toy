@@ -76,19 +76,21 @@ export const Login = () => {
 
   return (
     <div style={{ height: windowSize.height }}>
+      <div style={{ textAlign: "center" }}>
+        사이즈 x:{windowSize.width} y : {windowSize.height}
+      </div>
       <Container>
-        <div>
-          사이즈 x:{windowSize.width} y : {windowSize.height}
-        </div>
         <LoginContainer onSubmit={onSubmit}>
-          <div style={{ height: "80%", width: "100%" }}>
+          <div style={{ height: "100%", width: "100%" }}>
             <Title>Login</Title>
-            <LoginText>
-              ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
-            </LoginText>
-            <LoginText>
-              Password <LoginInput onChange={onChangePw} type="password" placeholder="Please enter your Password" />
-            </LoginText>
+            <div style={{ height: "30%", marginTop: "40px" }}>
+              <LoginText>
+                ID <LoginInput onChange={onChangeId} placeholder="Please enter your ID" />
+              </LoginText>
+              <LoginText>
+                Password <LoginInput onChange={onChangePw} type="password" placeholder="Please enter your Password" />
+              </LoginText>
+            </div>
             <LoginBtnDiv>
               <LoginBtn>로그인</LoginBtn>
             </LoginBtnDiv>
@@ -98,7 +100,6 @@ export const Login = () => {
             </FinderText>
           </div>
         </LoginContainer>
-        <div>오른쪽</div>
       </Container>
     </div>
   );

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
   margin-top: 20px;
@@ -12,7 +13,7 @@ export const Container = styled.div`
 
 export const LoginContainer = styled.form`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   border-style: solid;
   border-color: skyblue;
   border-radius: 10px;
@@ -26,30 +27,33 @@ export const LoginText = styled.div`
   display: flex;
   justify-content: right;
   align-items: center;
-  margin: 2px 10px;
-  height: 40px;
+  margin: 20px 10px;
+  height: 30%;
   width: 80%;
 `;
 
 export const FinderText = styled(LoginText)`
   justify-content: center;
   width: 100%;
-  height: 100%;
+  margin-top: -30px;
+  /* height: 90%; */
 `;
 
 export const LoginInput = styled.input`
   margin-left: 10px;
-  height: 20px;
+  height: 30px;
+  border: inset 1px;
+  border-radius: 10px;
   width: 60%;
 `;
 
 export const LoginBtnDiv = styled.div`
   text-align: center;
-  margin-top: 10px;
-  width: 100%;
+  margin-top: 20px;
 `;
 export const LoginBtn = styled.button`
-  width: 70%;
+  width: 60%;
+  height: 40px;
   border-radius: 10px;
   font-size: 20px;
   background-color: skyblue;
@@ -61,7 +65,7 @@ export const LoginBtn = styled.button`
 
 export const Title = styled.h2`
   text-align: center;
-  width: 100%;
+  margin-top: 60px;
 `;
 
 export const SubBtn = styled.button`
