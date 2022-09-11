@@ -71,8 +71,6 @@ export const FindPw = () => {
 
   return (
     <Container>
-      <FindIdContainer>왼쪽</FindIdContainer>
-
       {changePw ? (
         <FindIdContainer>
           <ResultPw userPw={changePw} />
@@ -97,8 +95,6 @@ export const FindPw = () => {
           </div>
         </FindIdContainer>
       )}
-
-      <FindIdContainer>오른쪽</FindIdContainer>
     </Container>
   );
 };

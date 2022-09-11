@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const MypageContainer = styled.div``;
@@ -11,13 +11,20 @@ export const MypageUpdateContainer = styled.form`
   /* justify-content: left; */
 `;
 
+export const MypageContentWrap = styled.div`
+  border: solid skyblue;
+  background-color: lightblue;
+  border-radius: 15px;
+  padding: 10px 30px;
+`;
+
 export const MypageTitle = styled.h2`
   font-size: 30px;
   text-align: center;
 `;
 
 export const MypageContent = styled.div`
-  margin: 10px 0px;
+  margin: 30px 0px;
 `;
 export const MypageUpdateContent = styled(MypageContent)`
   margin: 10px 0px;

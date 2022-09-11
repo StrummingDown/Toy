@@ -13,9 +13,9 @@ export const FindId = () => {
   const [idResult, setIdResult] = useState(false);
   const [userId, setUserId] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   const openModal = () => {
-    // console.log("확인", checkNumber);
     setModalOpen(true);
   };
   const closeModal = () => {
@@ -23,9 +23,11 @@ export const FindId = () => {
   };
   const sendCertifyNumber = async () => {
     if (phone.length < 11) {
-      alert("핸드폰 번호를 정확하게 입력해주세요.");
+      setModalContent("핸드폰 번호를 정확하게 입력해주세요.");
+      openModal();
     } else {
-      alert("인증번호를 전송했습니다.");
+      setModalContent("인증번호를 전송했습니다.");
+      openModal();
       const { data } = await axios.post("http://localhost:4000/users/certify", { phone });
       setCertifyNumber(data);
     }
@@ -33,14 +35,15 @@ export const FindId = () => {
   const checkCertifyNumber = () => {
     if (certifyNumber === inputCertifyNumber) {
       setCheckNumber(true);
+      setModalContent("인증번호가 일치합니다.");
       openModal();
     } else {
       setCheckNumber(false);
+      setModalContent("인증번호가 일치하지 않습니다.");
       openModal();
     }
   };
   const inputNumber = (e) => {
-    console.log("여기", certifyNumber);
     setInputCertiyNumber(parseInt(e.target.value));
   };
 
@@ -61,8 +64,6 @@ export const FindId = () => {
   };
   return (
     <Container>
-      <FindIdContainer>왼쪽</FindIdContainer>
-
       {idResult ? (
         <FindIdContainer>
           <Title>아이디 찾기</Title>
@@ -71,12 +72,7 @@ export const FindId = () => {
       ) : (
         <FindIdContainer>
           <Title>아이디 찾기</Title>
-          <FindIdModal
-            open={modalOpen}
-            close={closeModal}
-            header="인증번호 확인"
-            content={checkNumber ? "인증번호가 일치합니다." : "인증번호가 일치하지 않습니다."}
-          />
+          <FindIdModal open={modalOpen} close={closeModal} header="인증번호 확인" content={modalContent} />
 
           <FindIdText>E-mail</FindIdText>
           <FindIdInput
@@ -115,8 +111,6 @@ export const FindId = () => {
           </div>
         </FindIdContainer>
       )}
-
-      <FindIdContainer>오른쪽</FindIdContainer>
     </Container>
   );
 };

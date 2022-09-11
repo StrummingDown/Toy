@@ -13,6 +13,7 @@ import {
   MypageContentUpdate,
   MypageUpdateContainer,
   MypageUpdateContent,
+  MypageContentWrap,
 } from "../css/Mypage";
 import { loginStatus, userInfo } from "../store";
 
@@ -138,10 +139,12 @@ export const MypageInfo = () => {
       ) : (
         <MypageContainer>
           <MypageTitle>마이페이지</MypageTitle>
-          <MypageContent>{`ID : ${userId}`}</MypageContent>
-          <MypageContent>{`Nickname : ${nickname}`}</MypageContent>
-          <MypageContent>{`E-mail : ${email}`}</MypageContent>
-          <MypageContent>{`Location : ${location}`}</MypageContent>
+          <MypageContentWrap>
+            <MypageContent>{`ID : ${userId}`}</MypageContent>
+            <MypageContent>{`Nickname : ${nickname}`}</MypageContent>
+            <MypageContent>{`E-mail : ${email}`}</MypageContent>
+            <MypageContent>{`Location : ${location}`}</MypageContent>
+          </MypageContentWrap>
           <MypageBtnWrap>
             <MypageBtn onClick={changePw}>비밀번호 변경하기</MypageBtn>
             <MypageBtn onClick={updateUser}>회원정보 수정하기</MypageBtn>

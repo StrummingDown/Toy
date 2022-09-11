@@ -45,9 +45,7 @@ export const Mypage = () => {
 
   return (
     <Container>
-      <MypageContainer>왼쪽</MypageContainer>
       <MypageInfo />
-      <MypageContainer>오른쪽</MypageContainer>
     </Container>
   );
 };
