@@ -1,9 +1,18 @@
 import React from "react";
+import { MainContent, MainWrapper } from "../css/Main";
 
 export const Main = () => {
   return (
-    <div>
-      <h1>Main</h1>
-    </div>
+    <MainWrapper>
+      <MainContent>
+        <h1>안녕하세요 토이 프로젝트 입니다.</h1>
+        <h1>test</h1>
+        <h1>test</h1>
+        <h1>test</h1>
+        <h1>test</h1>
+        <h1>test</h1>
+        <h1>test</h1>
+      </MainContent>
+    </MainWrapper>
   );
 };

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const HeaderContainer = styled.div`
+  font-family: "Gaegu";
+  font-weight: bolder;
   display: flex;
   justify-content: space-between;
   background: linear-gradient(to right, white 20%, skyblue);

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.footer`
+  font-family: "Gaegu";
+  font-weight: bolder;
   background: linear-gradient(to left, white 20%, skyblue);
 `;
 
