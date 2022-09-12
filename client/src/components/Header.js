@@ -27,12 +27,14 @@ export const Header = () => {
       {token ? (
         <HeaderWarp>
           <HeaderLoginLink to="/">Main</HeaderLoginLink>
+          <HeaderLoginLink to={`/location`}> Location </HeaderLoginLink>
           <HeaderLoginLink to={`/mypage/${email}`}> Mypage </HeaderLoginLink>
           <HeaderLogout onClick={logout}>Logout</HeaderLogout>
         </HeaderWarp>
       ) : (
         <HeaderWarp>
           <HeaderLoginLink to="/">Main</HeaderLoginLink>
+          <HeaderLoginLink to={`/location`}> Location </HeaderLoginLink>
           <HeaderLoginLink to="/login">Login</HeaderLoginLink>
         </HeaderWarp>
       )}
