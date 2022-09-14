@@ -11,6 +11,7 @@ import { FindPw } from "./pages/FindPw";
 import { ResultId } from "./components/ResultId";
 import { ChangePw } from "./pages/ChangePw";
 import { Location } from "./pages/Location";
+import SearchPlace from "./components/SearchPlace";
 
 export const Routers = () => {
   return (
@@ -22,7 +23,7 @@ export const Routers = () => {
         <Route path="/signup" exact element={<Signup />} />
         <Route path="/find/id" exact element={<FindId />} />
         <Route path="/find/pw" exact element={<FindPw />} />
-        <Route path="/location" exact element={<Location />} />
+        <Route path="/location" exact element={<SearchPlace />} />
         <Route path="/mypage/:id" exact element={<Mypage />} />
         <Route path="/find/id/result" exact element={<ResultId />} />
         <Route path="/mypage/change/pw" exact element={<ChangePw />} />
