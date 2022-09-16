@@ -43,7 +43,11 @@ export const Location = ({ searchPlace }) => {
             : "";
           detailAddr += "<div>지번 주소 : " + result[0].address.address_name + "</div>";
 
-          var content = '<div class="bAddr">' + '<span class="title">법정동 주소정보</span>' + detailAddr + "</div>";
+          var content =
+            '<div style={{padding:"5px",textOverflow:"ellipsis",overFlow:"hidden",whiteSpace:"nowrap"}}>' +
+            '<span style={{fontWeight:"bold",display:"block", padding: "3px"}}>법정동 주소정보</span>' +
+            detailAddr +
+            "</div>";
 
           // 마커를 클릭한 위치에 표시합니다
           marker.setPosition(mouseEvent.latLng);
@@ -132,12 +136,16 @@ export const Location = ({ searchPlace }) => {
               position: "relative",
               overflow: "hidden",
             }}
-          ></div>
-          <div style={{ position: "absolute", left: "10px", background: "#FFF", zIndex: "1" }} className="hAddr">
-            <span style={{ fontWeight: "bold", display: "block" }} className="title">
-              지도중심기준 행정동 주소정보
-            </span>
-            <span id="centerAddr"></span>
+          >
+            <div
+              style={{ position: "absolute", left: "10px", background: "lightgray", zIndex: "999" }}
+              className="hAddr"
+            >
+              <span style={{ fontWeight: "bold", display: "block" }} className="title">
+                지도중심기준 행정동 주소정보
+              </span>
+              <span id="centerAddr"></span>
+            </div>
           </div>
         </div>
       </div>
