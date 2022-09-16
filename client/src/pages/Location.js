@@ -119,7 +119,7 @@ export const Location = ({ searchPlace }) => {
   }, [searchPlace]);
 
   return (
-    <div>
+    <div style={{ fontFamily: "Gaegu" }}>
       <h2 style={{ textAlign: "center" }}>내 위치</h2>
       <div
         style={{

@@ -17,7 +17,7 @@ const SearchPlace = () => {
 
   return (
     <>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", fontFamily: "Gaegu" }}>
         <h2>위치 검색</h2>
         <form className="inputForm" onSubmit={handleSubmit}>
           <input style={{ width: "200px" }} placeholder="장소를 입력하세요." onChange={onChange} value={inputText} />

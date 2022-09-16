@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+  font-family: "Gaegu";
 `;
 
 export const MypageContainer = styled.div``;
@@ -25,6 +26,7 @@ export const MypageTitle = styled.h2`
 
 export const MypageContent = styled.div`
   margin: 30px 0px;
+  font-size: 22px;
 `;
 export const MypageUpdateContent = styled(MypageContent)`
   margin: 10px 0px;
@@ -37,6 +39,8 @@ export const MypageBtn = styled.button`
   border-radius: 10px;
   font-size: 16px;
   background-color: skyblue;
+  font-family: "Gaegu";
+  font-weight: bold;
   cursor: pointer;
   &:active {
     box-shadow: inset -0.3rem -0.1rem 1.4rem #fbfbfb, inset 0.3rem 0.4rem 0.8rem #bec5d0;
@@ -53,6 +57,9 @@ export const MypageBtnWrap = styled.div`
 
 export const MypageContentUpdate = styled.input`
   margin: 5px 5px;
-  height: 24px;
+  height: 28px;
+  width: 160px;
+  font-family: "Gaegu";
+  font-weight: bold;
 `;
 export const MypageInput = styled.input``;

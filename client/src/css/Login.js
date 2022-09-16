@@ -9,6 +9,7 @@ export const Container = styled.div`
   margin-top: 20px;
   height: 60%;
   width: 100%;
+  font-family: "Gaegu";
 `;
 
 export const LoginContainer = styled.form`
@@ -34,8 +35,9 @@ export const LoginText = styled.div`
 
 export const FinderText = styled(LoginText)`
   justify-content: center;
+  margin-top: -20px;
   width: 100%;
-  margin-top: -30px;
+
   /* height: 90%; */
 `;
 
@@ -57,6 +59,7 @@ export const LoginBtn = styled.button`
   border-radius: 10px;
   font-size: 20px;
   background-color: skyblue;
+  font-family: "Gaegu";
   &:active {
     box-shadow: inset -0.3rem -0.1rem 1.4rem #fbfbfb, inset 0.3rem 0.4rem 0.8rem #bec5d0;
     cursor: pointer;
@@ -74,6 +77,6 @@ export const SubBtn = styled.button`
 export const SubLink = styled(Link)`
   text-decoration: none;
   color: black;
-  font-size: 12px;
+  font-size: 20px;
   margin: 0px 10px;
 `;

@@ -28,6 +28,7 @@ export const Header = () => {
         <HeaderWarp>
           <HeaderLoginLink to="/">Main</HeaderLoginLink>
           <HeaderLoginLink to={`/location`}> Location </HeaderLoginLink>
+          <HeaderLoginLink to={`/community`}> Community </HeaderLoginLink>
           <HeaderLoginLink to={`/mypage/${email}`}> Mypage </HeaderLoginLink>
           <HeaderLogout onClick={logout}>Logout</HeaderLogout>
         </HeaderWarp>
@@ -35,6 +36,8 @@ export const Header = () => {
         <HeaderWarp>
           <HeaderLoginLink to="/">Main</HeaderLoginLink>
           <HeaderLoginLink to={`/location`}> Location </HeaderLoginLink>
+          <HeaderLoginLink to={`/community`}> Community </HeaderLoginLink>
+
           <HeaderLoginLink to="/login">Login</HeaderLoginLink>
         </HeaderWarp>
       )}
