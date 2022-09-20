@@ -17,6 +17,16 @@ model Users {
   email String @unique
   nickname String 
   location String
-  phone String
+  posts Posts[]
+  
+}
+
+model Posts{
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  user Users @relation(fields: [userId],references: [userId],onDelete: Cascade)
+  userId String
+
 }
 
