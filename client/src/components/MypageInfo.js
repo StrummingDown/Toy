@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import {
   Container,
   MypageContainer,
@@ -15,9 +15,9 @@ import {
   MypageUpdateContent,
   MypageContentWrap,
 } from "../css/Mypage";
-import { loginStatus, userInfo } from "../store";
+import { loginStatus, userInfo, userToken } from "../store";
 
-export const MypageInfo = () => {
+export const MypageInfo = ({ token }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [userData, setUserData] = useRecoilState(userInfo);
   const [userId, setUserId] = useState(userData.userId);
@@ -25,7 +25,7 @@ export const MypageInfo = () => {
   const [email, setEmail] = useState(userData.email);
   const [location, setLocation] = useState(userData.location);
   const [isLogin, setIsLogin] = useRecoilState(loginStatus);
-  const token = window.localStorage.getItem("token");
+  const deleteToken = useResetRecoilState(userToken);
   const nav = useNavigate();
 
   // console.log("내정보렌더링", userData);
@@ -47,7 +47,7 @@ export const MypageInfo = () => {
 
   const withdrawal = async () => {
     await axios.delete(`http://localhost:4000/users`, { data: { token } });
-    window.localStorage.removeItem("token");
+    deleteToken();
     setIsLogin(false);
     nav("/");
   };

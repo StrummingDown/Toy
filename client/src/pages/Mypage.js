@@ -45,7 +45,7 @@ export const Mypage = () => {
 
   return (
     <Container>
-      <MypageInfo />
+      <MypageInfo token={token} />
     </Container>
   );
 };

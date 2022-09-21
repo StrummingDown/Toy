@@ -141,10 +141,9 @@ export class UsersService {
 
   async deleteUser({ token }: token): Promise<Users> {
     try {
-      // const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
-
+      const userData = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
       return await this.prisma.users.delete({
-        where: { userId: '휘인' },
+        where: { userId: userData['userId'] },
       });
     } catch {
       throw new NotFoundException(`User not found.`);
