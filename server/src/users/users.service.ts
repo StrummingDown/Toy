@@ -164,11 +164,9 @@ export class UsersService {
     });
   }
 
-  async updateUser(id: string, updateDate: UpdateUserDto): Promise<Users> {
+  async updateUser(id: string, updateData: UpdateUserDto): Promise<Users> {
     try {
-      console.log('업데이트 요청');
-      const { email, nickname, userId } = updateDate;
-      console.log(email, nickname, userId);
+      const { email, nickname, userId } = updateData;
       return await this.prisma.users.update({
         where: { userId },
         data: { nickname },
