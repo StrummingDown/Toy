@@ -58,6 +58,26 @@ export class UsersService {
   async getAllUsers(): Promise<Users[]> {
     return this.prisma.users.findMany();
   }
+
+  async checkDuplicateId(userId: string): Promise<boolean> {
+    const checkUserId = await this.prisma.users.findUnique({
+      where: { userId },
+    });
+    if (checkUserId === null) {
+      return true;
+    }
+    return false;
+  }
+
+  async checkDuplicateEmail(userEmail: string): Promise<boolean> {
+    const checkUserEmail = await this.prisma.users.findUnique({
+      where: { email: userEmail },
+    });
+    if (checkUserEmail === null) {
+      return true;
+    }
+    return false;
+  }
   async getOneUser({ token }: token): Promise<Users> {
     try {
       //try안에서 NotFoundException이 작동하지 않는다..

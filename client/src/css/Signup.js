@@ -14,6 +14,7 @@ export const SignupText = styled.div`
   display: flex;
   margin: 2px 0px;
   justify-content: space-between;
+  position: static;
 `;
 
 export const SignupInput = styled.input`

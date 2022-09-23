@@ -37,6 +37,20 @@ export class UsersController {
   getAllUsers(): Promise<Users[]> {
     return this.usersService.getAllUsers();
   }
+
+  @Post('duplicate/id')
+  async checkDuplicateId(
+    @Body() { userId }: { userId: string },
+  ): Promise<boolean> {
+    return this.usersService.checkDuplicateId(userId);
+  }
+  @Post('duplicate/email')
+  async checkDuplicateEmail(
+    @Body() { userEmail }: { userEmail: string },
+  ): Promise<boolean> {
+    return this.usersService.checkDuplicateEmail(userEmail);
+  }
+
   @Post('certify')
   async certify(@Body() { phone }: { phone: string }): Promise<string> {
     return this.usersService.certify(phone);
