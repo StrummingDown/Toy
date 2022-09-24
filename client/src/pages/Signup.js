@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Title } from "../css/Login";
-import { Container, SignupBtn, SignupContainer, SignupError, SignupInput, SignupText } from "../css/Signup";
+import {
+  Container,
+  SignupBtn,
+  SignupContainer,
+  SignupError,
+  SignupInput,
+  SignupText,
+  DuplicateBtn,
+  SignupCategory,
+} from "../css/Signup";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -68,39 +77,32 @@ export const Signup = () => {
 
   return (
     <Container>
-      <SignupContainer>왼쪽</SignupContainer>
       <FindIdModal open={modalOpen} close={closeModal} header="인증번호 확인" content={modalContent} />
 
       <SignupContainer onSubmit={handleSubmit(onSubmit)}>
         <Title>회원가입</Title>
-
-        <div style={{ display: "flex" }}>
-          <SignupText>
-            ID
-            <SignupInput
-              id="userId"
-              placeholder="Please Enter your ID"
-              onChange={(e) => {
-                // setUserId(e.target.value);
-                console.log(e.target.value);
-              }}
-              {...register("userId", {
-                required: "ID는 필수 사항입니다.",
-                pattern: {
-                  value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,21}$/,
-                  message: "올바른 ID 형식을 입력해주세요.",
-                },
-              })}
-            />
-          </SignupText>
-
-          <button onClick={checkDuplicateId}>중복확인</button>
-        </div>
-
-        {errors.userId && <SignupError role="alert">{errors.userId.message}</SignupError>}
-
+        <SignupCategory> 아이디</SignupCategory>
         <SignupText>
-          Password
+          <SignupInput
+            id="userId"
+            placeholder="Please Enter your ID"
+            onChange={(e) => {
+              // setUserId(e.target.value);
+              console.log(e.target.value);
+            }}
+            {...register("userId", {
+              required: "ID는 필수 사항입니다.",
+              pattern: {
+                value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,21}$/,
+                message: "올바른 ID 형식을 입력해주세요.",
+              },
+            })}
+          />
+          <DuplicateBtn onClick={checkDuplicateId}>중복확인</DuplicateBtn>
+        </SignupText>
+        {errors.userId && <SignupError role="alert">{errors.userId.message}</SignupError>}
+        <SignupCategory> 비밀번호 </SignupCategory>
+        <SignupText>
           <SignupInput
             id="password"
             type="password"
@@ -115,8 +117,8 @@ export const Signup = () => {
           />
         </SignupText>
         {errors.password && <SignupError role="alert">{errors.password.message}</SignupError>}
+        <SignupCategory> 비밀번호 재확인 </SignupCategory>
         <SignupText>
-          Check Password
           <SignupInput
             id="checkPassword"
             type="password"
@@ -133,8 +135,8 @@ export const Signup = () => {
           />
         </SignupText>
         {errors.checkPassword && <SignupError role="alert">{errors.checkPassword.message}</SignupError>}
+        <SignupCategory>이메일 </SignupCategory>
         <SignupText>
-          E-mail
           <SignupInput
             id="email"
             placeholder="Please Enter your E-mail"
@@ -143,11 +145,11 @@ export const Signup = () => {
               pattern: { value: /\S+@\S+\.\S+/, message: "올바른 이메일 형식을 입력해주세요." },
             })}
           />
-          <button onClick={checkDuplicateEmail}>중복확인</button>
+          <DuplicateBtn onClick={checkDuplicateEmail}>중복확인</DuplicateBtn>
         </SignupText>
         {errors.email && <SignupError role="alert">{errors.email.message}</SignupError>}
+        <SignupCategory>닉네임</SignupCategory>
         <SignupText>
-          Nickname
           <SignupInput
             id="nickname"
             placeholder="Please Enter your Nickname"
@@ -162,11 +164,10 @@ export const Signup = () => {
         </SignupText>
         {errors.nickname && <SignupError role="alert">{errors.nickname.message}</SignupError>}
         <SignupText>
-          <div>lcoation</div>
+          <SignupCategory>위치</SignupCategory>
         </SignupText>
         <SignupBtn type="submit">가입하기</SignupBtn>
       </SignupContainer>
-      <SignupContainer>오른쪽</SignupContainer>
     </Container>
   );
 };
