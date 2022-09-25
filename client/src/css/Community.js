@@ -55,3 +55,11 @@ export const CommunityCategoryContent = styled.div`
 // export const Community
 export const CommunityCategory = styled.h3``;
 // export const Community
+
+export const CreatePostLink = styled(Link)`
+  color: white;
+  background-color: skyblue;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 5px 5px;
+`;

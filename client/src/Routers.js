@@ -13,6 +13,7 @@ import { ChangePw } from "./pages/ChangePw";
 import SearchPlace from "./components/SearchPlace";
 import { Community } from "./pages/Community";
 import { Post } from "./pages/Post";
+import { CreatePost } from "./pages/CreatePost";
 
 export const Routers = () => {
   return (
@@ -27,6 +28,7 @@ export const Routers = () => {
         <Route path="/location" exact element={<SearchPlace />} />
         <Route path="/community" exact element={<Community />} />
         <Route path="/community/:id" exact element={<Post />} />
+        <Route path="/community/create/post" exact element={<CreatePost />} />
         <Route path="/mypage/:id" exact element={<Mypage />} />
         <Route path="/find/id/result" exact element={<ResultId />} />
         <Route path="/mypage/change/pw" exact element={<ChangePw />} />
