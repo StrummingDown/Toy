@@ -29,9 +29,10 @@ export const Signup = () => {
     getValues,
   } = useForm();
 
-  const [checkUserId, setCheckUserId] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [idCheck, setIdCheck] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(false);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -41,43 +42,64 @@ export const Signup = () => {
 
   // console.log(getValues());
   const onSubmit = async (data) => {
-    // const userData = await axios.post(`http://localhost:4000/users`, data);
-    // nav("/");
-    // return userData;
-    // await new Promise((r) => setTimeout(r, 1000));
+    if (idCheck && emailCheck) {
+      const userData = await axios.post(`http://localhost:4000/users`, data);
+      nav("/");
+      return userData;
+      // await new Promise((r) => setTimeout(r, 1000));
+    } else {
+      setModalContent("아이디 또는 이메일 중복확인을 완료해주세요.");
+      openModal();
+    }
   };
 
   console.log(getValues());
+
   const checkDuplicateId = async () => {
     const id = await getValues().userId;
 
-    const { data: check } = await axios.post(`http://localhost:4000/users/duplicate/id`, { userId: id });
-    setCheckUserId(check);
-    console.log(check);
-    if (!check) {
-      setModalContent("이미 존재하는 ID 입니다.");
+    if (id.length <= 1) {
+      setModalContent("ID는 두 글자 이상 입력해 주세요.");
       openModal();
     } else {
-      setModalContent("사용할 수 있는 ID 입니다.");
-      openModal();
+      const { data: check } = await axios.post(`http://localhost:4000/users/duplicate/id`, { userId: id });
+
+      if (!check) {
+        setIdCheck(false);
+        setModalContent("이미 존재하는 ID 입니다.");
+        openModal();
+      } else {
+        setIdCheck(true);
+        setModalContent("사용할 수 있는 ID 입니다.");
+        openModal();
+      }
     }
   };
   const checkDuplicateEmail = async () => {
     const email = await getValues().email;
-
-    const { data: check } = await axios.post(`http://localhost:4000/users/duplicate/email`, { userEmail: email });
-    if (!check) {
-      setModalContent("이미 존재하는 E-mail 입니다.");
+    const emailRegex = /\S+@\S+\.\S+/;
+    const emailCheck = emailRegex.test(email);
+    console.log(emailCheck);
+    if (email.length < 1 || !emailCheck) {
+      setModalContent("올바른 이메일 형식을 입력해 주세요.");
       openModal();
     } else {
-      setModalContent("사용할 수 있는 E-mail 입니다.");
-      openModal();
+      const { data: check } = await axios.post(`http://localhost:4000/users/duplicate/email`, { userEmail: email });
+      if (!check) {
+        setEmailCheck(false);
+        setModalContent("이미 존재하는 E-mail 입니다.");
+        openModal();
+      } else {
+        setEmailCheck(true);
+        setModalContent("사용할 수 있는 E-mail 입니다.");
+        openModal();
+      }
     }
   };
 
   return (
     <Container>
-      <FindIdModal open={modalOpen} close={closeModal} header="인증번호 확인" content={modalContent} />
+      <FindIdModal open={modalOpen} close={closeModal} header="중복확인" content={modalContent} />
 
       <SignupContainer onSubmit={handleSubmit(onSubmit)}>
         <Title>회원가입</Title>
@@ -86,10 +108,6 @@ export const Signup = () => {
           <SignupInput
             id="userId"
             placeholder="Please Enter your ID"
-            onChange={(e) => {
-              // setUserId(e.target.value);
-              console.log(e.target.value);
-            }}
             {...register("userId", {
               required: "ID는 필수 사항입니다.",
               pattern: {
@@ -98,7 +116,9 @@ export const Signup = () => {
               },
             })}
           />
-          <DuplicateBtn onClick={checkDuplicateId}>중복확인</DuplicateBtn>
+          <DuplicateBtn type="button" onClick={checkDuplicateId}>
+            중복확인
+          </DuplicateBtn>
         </SignupText>
         {errors.userId && <SignupError role="alert">{errors.userId.message}</SignupError>}
         <SignupCategory> 비밀번호 </SignupCategory>
@@ -145,7 +165,9 @@ export const Signup = () => {
               pattern: { value: /\S+@\S+\.\S+/, message: "올바른 이메일 형식을 입력해주세요." },
             })}
           />
-          <DuplicateBtn onClick={checkDuplicateEmail}>중복확인</DuplicateBtn>
+          <DuplicateBtn type="button" onClick={checkDuplicateEmail}>
+            중복확인
+          </DuplicateBtn>
         </SignupText>
         {errors.email && <SignupError role="alert">{errors.email.message}</SignupError>}
         <SignupCategory>닉네임</SignupCategory>
